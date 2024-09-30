@@ -40,8 +40,31 @@ h1 {
 }
 
 .photographer_section article h2 {
+    
     color: #D3573C;
     font-size: 36px;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.photographer_section article h3 {
+    color:  #901C1C;
+    font-size: 18px;
+    font-weight: 200;
+}
+
+.photographer_section article h4 {
+    font-weight: normal;
+    font-size: 15px;
+}
+
+.photographer_section article h5 {
+    font-weight: normal;
+    color: #757575;
+}
+
+.photographer_section article h3, h4, h5 {
+    margin: 0;
 }
 
 .photographer_section article img {
