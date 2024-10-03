@@ -48,6 +48,10 @@
     text-align: center;
 }
 
+.message {
+    min-height: 200px;
+}
+
 form {
     display: flex;
     width: 100%;
