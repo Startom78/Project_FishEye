@@ -1,9 +1,7 @@
-function displayModal() {
-    const modal = document.getElementById("contact_modal");
-	modal.style.display = "block";
+export function displayModal(modal) {
+	modal.style.display = "flex";
 }
 
-function closeModal() {
-    const modal = document.getElementById("contact_modal");
+export function closeModal(modal) {
     modal.style.display = "none";
 }
