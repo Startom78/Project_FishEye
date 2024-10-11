@@ -1,9 +1,53 @@
-export const photographerTemplate = (data) => {
-    const { name, id, portrait, city, country, tagline, price } = data;
 
+/**
+ * @typedef {Object} photographer 
+ * @property {string} name 
+ * @property {string} id 
+ * @property {string} portrait l'url absolu de l'image 
+ * @property {string} city
+ * @property {string} country 
+ * @property {string} tagline la catchphrase
+ * @property {string} price le cout journalier
+ */
+
+/**
+ * @typedef {Object} photographerWithPicture 
+ * @property {string} name 
+ * @property {string} id 
+ * @property {string} picture
+ * @property {string} city
+ * @property {string} country 
+ * @property {string} tagline
+ * @property {string} price
+ */
+
+
+/**
+ * @typedef {Object} photographerReturnType
+ * @extends photographerWithPicture
+ * @property {function} createCard
+ * */
+
+/** 
+ * @param {photographer} photographer 
+ * @returns {photographerWithPicture} 
+ */
+export const extractPhotographer = (photographer) => {
+    const { name, id, portrait, city, country, tagline, price } = photographer;
     const picture = `assets/images/photographers/${portrait}`;
+    return { name, id,  picture, city, country, tagline, price };
+}
 
-    function getUserCardDOM() {
+/** 
+ * @name photographerTemplate
+ * @param {photographer} photographer 
+ * @returns {photographerReturnType} 
+ */
+
+export const photographerTemplate = (photographer) => {
+    const { name, id, picture, city, country, tagline, price } = extractPhotographer(photographer);
+    
+    function createCard() {
         const article = document.createElement( 'article' );
         const photographerUrl = `photographer.html?id=${id}`;
         const link = document.createElement('a');
@@ -28,5 +72,24 @@ export const photographerTemplate = (data) => {
         article.appendChild(h5);
         return (article);
     }
-    return { name, picture, city, country, tagline, price, getUserCardDOM }
+    return { name, id,  picture, city, country, tagline, price, createCard }
+}
+
+/** 
+ * @param {photographer} photographer 
+ * @returns {photographerReturnType} 
+ */
+
+export const getPhotographerBanner = (photographer) => {
+    const { name, id, picture, city, country, tagline, price } = extractPhotographer(photographer);
+    function createCard() {
+        
+        
+        
+        
+        return
+    }
+
+
+    return { name, id,  picture, city, country, tagline, price, createCard }
 }
