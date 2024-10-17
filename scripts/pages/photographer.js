@@ -13,7 +13,9 @@ window.onload = () => {
         // Je récupère les données et les médias du photographe en fonction de son id
         const ptg = data.photographers.find(p => ""+p.id === ""+id);
         const media = data.media.filter(m => ""+m.photographerId === ""+id);
+        console.log(media);
         displayBanner(ptg);
+        displayCaroussel(ptg,media);
     })
      .catch(error => console.error('Error:', error)); 
 }
@@ -31,3 +33,11 @@ window.onload = () => {
     Banner.appendChild(userBannerDOM.nameCityCountryTagline);
     Banner.appendChild(userBannerDOM.img);
 }
+
+function displayCaroussel(photographer, medias) {
+    const caroussel = document.getElementById("main");
+    const photographerManager = photographerTemplate(photographer, medias);
+    const carousselContent = photographerManager.createCaroussel();
+    caroussel.appendChild(carousselContent);
+}
+

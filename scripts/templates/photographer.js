@@ -67,7 +67,27 @@ export const photographerTemplate = (photographer, medias) => {
         return {nameCityCountryTagline, img};
     }
     function createCaroussel() {
-
+      const listImg = document.createElement('ul');
+      medias.forEach(media => {
+        console.log(media);
+        const listItem = document.createElement('li');
+        if (media.image) {
+            const img = document.createElement('img');
+            img.setAttribute('src', `assets/images/media/${name}/${media.image}`)
+            img.setAttribute('alt', "image de " + name);
+            listItem.appendChild(img);
+            
+        } 
+        else {
+            const video = document.createElement('video');
+            video.setAttribute('source', `assets/images/media/${name}/${media.video}`)
+            video.setAttribute('alt', "video de " + name);
+            listItem.appendChild(video);
+        }
+        listImg.appendChild(listItem);
+        // creer balise pour vidéos
+      })
+      return listImg
     }
     return { createPhotographerBanner, createCard, createCaroussel }
 }

@@ -18,10 +18,19 @@ interface photographerWithPicture {
     price: number;
 }
 
-type media = string
+interface media {
+    date: string;
+    id: number;
+    image: string;
+    video: string;
+    likes: number;
+    photographerId: number
+    price: number
+    title: string
+}
 type medias = media[]
 type photographerReturnType = {
     createCard: () => Node
     createPhotographerBanner: () => {nameCityCountryTagline: Node, img: Node}
-    createCaroussel: () => void
+    createCaroussel: () => Node
  }
