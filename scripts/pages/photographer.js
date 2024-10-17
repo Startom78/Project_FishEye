@@ -1,4 +1,5 @@
 //Mettre le code JavaScript lié à la page photographer.html
+import { photographerTemplate } from "../templates/photographer.js";
 
 window.onload = () => {
     const params = new URLSearchParams(window.location.search); 
@@ -11,9 +12,22 @@ window.onload = () => {
     .then(data => {
         // Je récupère les données et les médias du photographe en fonction de son id
         const ptg = data.photographers.find(p => ""+p.id === ""+id);
-        console.log(ptg)
         const media = data.media.filter(m => ""+m.photographerId === ""+id);
-        console.log("Media: ici", media);
+        displayBanner(ptg);
     })
-    .catch(error => console.error('Error:', error));
+     .catch(error => console.error('Error:', error)); 
+}
+
+/**
+ * @function displayBanner
+ * @param {photographer} photographer 
+ */
+ function displayBanner(photographer) {
+    const Banner = document.querySelector(".photograph-header");
+    const photographerManager = photographerTemplate(photographer);
+    const userBannerDOM = photographerManager.createPhotographerBanner();
+    console.log(userBannerDOM);
+    if(Banner === null) {console.error("Banner introuvable"); return}
+    Banner.appendChild(userBannerDOM.nameCityCountryTagline);
+    Banner.appendChild(userBannerDOM.img);
 }

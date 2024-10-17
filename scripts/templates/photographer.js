@@ -1,51 +1,19 @@
-
-/**
- * @typedef {Object} photographer 
- * @property {string} name 
- * @property {string} id 
- * @property {string} portrait l'url absolu de l'image 
- * @property {string} city
- * @property {string} country 
- * @property {string} tagline la catchphrase
- * @property {string} price le cout journalier
- */
-
-/**
- * @typedef {Object} photographerWithPicture 
- * @property {string} name 
- * @property {string} id 
- * @property {string} picture
- * @property {string} city
- * @property {string} country 
- * @property {string} tagline
- * @property {string} price
- */
-
-
-/**
- * @typedef {Object} photographerReturnType
- * @extends photographerWithPicture
- * @property {function} createCard
- * */
-
 /** 
+ * @function photographerTemplate
  * @param {photographer} photographer 
- * @returns {photographerWithPicture} 
- */
-export const extractPhotographer = (photographer) => {
-    const { name, id, portrait, city, country, tagline, price } = photographer;
-    const picture = `assets/images/photographers/${portrait}`;
-    return { name, id,  picture, city, country, tagline, price };
-}
-
-/** 
- * @name photographerTemplate
- * @param {photographer} photographer 
+ * @param {medias} [medias] 
  * @returns {photographerReturnType} 
  */
-
-export const photographerTemplate = (photographer) => {
-    const { name, id, picture, city, country, tagline, price } = extractPhotographer(photographer);
+export const photographerTemplate = (photographer, medias) => {
+    /**  
+     * @returns {photographerWithPicture} 
+    */
+    const extractPhotographer = () => {
+        const { name, id, portrait, city, country, tagline, price } = photographer;
+        const picture = `assets/images/photographers/${portrait}`;
+        return { name, id,  picture, city, country, tagline, price };
+    }
+    const { name, id, picture, city, country, tagline, price } = extractPhotographer();
     
     function createCard() {
         const article = document.createElement( 'article' );
@@ -72,24 +40,34 @@ export const photographerTemplate = (photographer) => {
         article.appendChild(h5);
         return (article);
     }
-    return { name, id,  picture, city, country, tagline, price, createCard }
-}
-
-/** 
- * @param {photographer} photographer 
- * @returns {photographerReturnType} 
- */
-
-export const getPhotographerBanner = (photographer) => {
-    const { name, id, picture, city, country, tagline, price } = extractPhotographer(photographer);
-    function createCard() {
+    function createPhotographerBanner() {
+        console.log("bonjour");
+        const nameCityCountryTagline = document.createElement('div')
+        nameCityCountryTagline.classList.add('ptgInfo')
+        const h1 = document.createElement('h1');
+        h1.classList.add('h1Photographer')
+        h1.textContent = name;
+        const h2 = document.createElement('h2');
+        h2.classList.add('h2Photographer')
+        h2.textContent = city + ',';
+        const h3 = document.createElement('h3');
+        h3.classList.add('h3Photographer');
+        h3.textContent  = country;
+        const h4 = document.createElement('h4');
+        h4.classList.add('h4Photographer');
+        h4.textContent = tagline;
+        const img = document.createElement('img');
+        img.setAttribute('src', picture)
+        img.setAttribute('alt', `photo de profil de ${name}`)
+        nameCityCountryTagline.appendChild(h1);
+        nameCityCountryTagline.appendChild(h2);
+        nameCityCountryTagline.appendChild(h3);
+        nameCityCountryTagline.appendChild(h4);
         
-        
-        
-        
-        return
+        return {nameCityCountryTagline, img};
     }
+    function createCaroussel() {
 
-
-    return { name, id,  picture, city, country, tagline, price, createCard }
+    }
+    return { createPhotographerBanner, createCard, createCaroussel }
 }

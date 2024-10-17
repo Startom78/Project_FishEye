@@ -7,6 +7,10 @@ async function getPhotographers() {
     }   
 }
 
+/**
+ * @function displayData
+ * @param {photographer[]} photographers
+ */
 async function displayData(photographers) {
     const photographersSection = document.querySelector(".photographer_section");
 
@@ -22,5 +26,4 @@ async function init() {
     const { photographers } = await getPhotographers();
     displayData(photographers);
 }
-
 init();
