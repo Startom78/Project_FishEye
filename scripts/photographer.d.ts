@@ -23,11 +23,11 @@ interface media {
     id: number;
     image: string;
     video: string;
-    likes: number;
-    photographerId: number
-    price: number
+    likes: string;
+    photographerId: number;
+    price: number;
     title: string
-}
+};
 type medias = media[]
 type photographerReturnType = {
     createCard: () => Node

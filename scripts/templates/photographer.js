@@ -41,53 +41,73 @@ export const photographerTemplate = (photographer, medias) => {
         return (article);
     }
     function createPhotographerBanner() {
-        console.log("bonjour");
         const nameCityCountryTagline = document.createElement('div')
         nameCityCountryTagline.classList.add('ptgInfo')
         const h1 = document.createElement('h1');
         h1.classList.add('h1Photographer')
         h1.textContent = name;
+        const cityCountry = document.createElement('div');
+        cityCountry.classList.add('cityCountry');
         const h2 = document.createElement('h2');
         h2.classList.add('h2Photographer')
         h2.textContent = city + ',';
         const h3 = document.createElement('h3');
         h3.classList.add('h3Photographer');
         h3.textContent  = country;
+        cityCountry.appendChild(h2);
+        cityCountry.appendChild(h3);
         const h4 = document.createElement('h4');
         h4.classList.add('h4Photographer');
         h4.textContent = tagline;
         const img = document.createElement('img');
+        img.classList.add('imgProfile')
         img.setAttribute('src', picture)
         img.setAttribute('alt', `photo de profil de ${name}`)
         nameCityCountryTagline.appendChild(h1);
-        nameCityCountryTagline.appendChild(h2);
-        nameCityCountryTagline.appendChild(h3);
+        nameCityCountryTagline.appendChild(cityCountry);
         nameCityCountryTagline.appendChild(h4);
         
         return {nameCityCountryTagline, img};
     }
     function createCaroussel() {
-      const listImg = document.createElement('ul');
+         
+      const cards = document.createElement('div');
+      cards.classList.add('cards');
       medias.forEach(media => {
-        console.log(media);
-        const listItem = document.createElement('li');
         if (media.image) {
+            const card = document.createElement('div');
+            card.classList.add('card')
             const img = document.createElement('img');
             img.setAttribute('src', `assets/images/media/${name}/${media.image}`)
             img.setAttribute('alt', "image de " + name);
-            listItem.appendChild(img);
-            
+            const titleLikes = document.createElement('div')
+            titleLikes.classList.add('titleLikes')
+            const title = document.createElement('div')
+            title.textContent = media.title;
+            const numberLikes = document.createElement('numberLikes');
+            numberLikes.textContent = media.likes;
+            const heart = document.createElement('i');
+            heart.classList.add('fa-heart');
+            titleLikes.appendChild(title);
+            titleLikes.appendChild(numberLikes);
+            titleLikes.appendChild(heart);
+            card.appendChild(img);
+            card.appendChild(titleLikes);
+            cards.appendChild(card);
         } 
         else {
+            const card = document.createElement('div');
+            card.classList.add('card')
             const video = document.createElement('video');
             video.setAttribute('source', `assets/images/media/${name}/${media.video}`)
             video.setAttribute('alt', "video de " + name);
-            listItem.appendChild(video);
+            card.appendChild(video);
+            video.appendChild(cards);
         }
-        listImg.appendChild(listItem);
+        //cards.appendChild();
         // creer balise pour vidéos
       })
-      return listImg
+      return cards
     }
     return { createPhotographerBanner, createCard, createCaroussel }
 }

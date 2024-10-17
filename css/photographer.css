@@ -3,9 +3,40 @@
 }
 
 .photograph-header {
+    border: 1px solid brown;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
+}
+
+.photograph-header .cityCountry {
+    border: 1px solid purple;
+    color: #901C1C;
+    ;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.ptgInfo {
+    border: 1px solid green;
+    padding-left: 20px;
+    
+}
+
+.photograph-header img {
+    
+    border: 1px solid blue; 
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    order: 3;
+    object-fit: cover;
 }
 
 .contact_button {
@@ -19,6 +50,7 @@
     background-color: #901C1C;
     border-radius: 5px;
     cursor: pointer;
+    order: 2;
 }
 
 .modal {
@@ -77,4 +109,51 @@ form input {
     height: 68px;
     border: none;
     border-radius: 5px;
+}
+
+.ptgInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    color: #D3573C;
+    font-size: 64px;
+}
+
+.cards {
+    display: grid;
+    margin: 0 100px;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid blue;
+    margin-top: 20px;
+    justify-items: center;
+    
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 300px;
+    border-radius: 5px;
+    border: 1px solid red;
+    margin: 0 20px 20px 0;
+}
+
+.card img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.card .titleLikes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 24px;
+    color:#901C1C;
+    ;
+    border: 1px solid purple;
 }

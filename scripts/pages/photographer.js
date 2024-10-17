@@ -4,7 +4,6 @@ import { photographerTemplate } from "../templates/photographer.js";
 window.onload = () => {
     const params = new URLSearchParams(window.location.search); 
     const id = params.get('id');
-    console.log(id);
 
     // Fetch photographers and media data
     fetch("../data/photographers.json")
@@ -13,7 +12,6 @@ window.onload = () => {
         // Je récupère les données et les médias du photographe en fonction de son id
         const ptg = data.photographers.find(p => ""+p.id === ""+id);
         const media = data.media.filter(m => ""+m.photographerId === ""+id);
-        console.log(media);
         displayBanner(ptg);
         displayCaroussel(ptg,media);
     })
@@ -28,7 +26,6 @@ window.onload = () => {
     const Banner = document.querySelector(".photograph-header");
     const photographerManager = photographerTemplate(photographer);
     const userBannerDOM = photographerManager.createPhotographerBanner();
-    console.log(userBannerDOM);
     if(Banner === null) {console.error("Banner introuvable"); return}
     Banner.appendChild(userBannerDOM.nameCityCountryTagline);
     Banner.appendChild(userBannerDOM.img);
@@ -36,7 +33,7 @@ window.onload = () => {
 
 function displayCaroussel(photographer, medias) {
     const caroussel = document.getElementById("main");
-    const photographerManager = photographerTemplate(photographer, medias);
+    const photographerManager = photographerTemplate(photographer, medias,);
     const carousselContent = photographerManager.createCaroussel();
     caroussel.appendChild(carousselContent);
 }
