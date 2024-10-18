@@ -1,10 +1,17 @@
 //Mettre le code JavaScript lié à la page photographer.html
+import Modal from "../components/modal.js";
 import { photographerTemplate } from "../templates/photographer.js";
+function createContactModal() {
+    const template = document.querySelector('#template_contact');
+    if (template instanceof HTMLTemplateElement) {
+        Modal.create("contactez-moi", template.content.cloneNode(true), document.querySelector('#contact_opener'));
 
+    }
+} 
 window.onload = () => {
     const params = new URLSearchParams(window.location.search); 
     const id = params.get('id');
-
+    createContactModal();
     // Fetch photographers and media data
     fetch("../data/photographers.json")
     .then(res => res.json())
@@ -27,7 +34,7 @@ window.onload = () => {
     const photographerManager = photographerTemplate(photographer);
     const userBannerDOM = photographerManager.createPhotographerBanner();
     if(Banner === null) {console.error("Banner introuvable"); return}
-    Banner.appendChild(userBannerDOM.nameCityCountryTagline);
+    Banner.insertBefore(userBannerDOM.nameCityCountryTagline, document.querySelector('#contact_opener'));
     Banner.appendChild(userBannerDOM.img);
 }
 

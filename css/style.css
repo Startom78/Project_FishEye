@@ -1,4 +1,18 @@
-@import url("photographer.css");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    max-width: 1440px;
+    padding: 0 100px;
+}
 
 body {
     font-family: "DM Sans", sans-serif;
@@ -16,68 +30,101 @@ header {
 
 h1 {
     color: #901C1C;
-    margin-right: 100px;
 }
 
 .logo {
     height: 50px;
-    margin-left: 100px;
+}
+
+.contact_button {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 11px;
+    width: 170px;
+    height: 70px;
+    border: none;
+    background-color: #901C1C;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px 0 #0004;
+    overflow: hidden;
+    & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1.5);
+    }
 }
 
 .photographer_section {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 70px;
-    margin-top: 100px;
 }
 
-.photographer_section article {
-    justify-self: center;
+.card-index {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    justify-content: center;
+
+    & .card-link {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    & .card-description {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 3px;
+    }
+
+    & h2 {
+        
+        color: #D3573C;
+        font-size: 36px;
+        font-weight: 400;
+        margin-bottom: 0;
+    }
+    
+    & h3 {
+        color:  #901C1C;
+        font-size: 18px;
+        font-weight: 200;
+    }
+    
+    & h4 {
+        font-weight: normal;
+        font-size: 15px;
+    }
+    
+    & h5 {
+        font-weight: normal;
+        color: #757575;
+    }
+    
+    & h3, h4, h5 {
+        margin: 0;
+    }
+    
+   
 }
 
 a {
     text-decoration: none;
 }
 
-.photographer_section article h2 {
-    
-    color: #D3573C;
-    font-size: 36px;
-    font-weight: 400;
-    margin-bottom: 0;
-}
-
-.photographer_section article h3 {
-    color:  #901C1C;
-    font-size: 18px;
-    font-weight: 200;
-}
-
-.photographer_section article h4 {
-    font-weight: normal;
-    font-size: 15px;
-}
-
-.photographer_section article h5 {
-    font-weight: normal;
-    color: #757575;
-}
-
-.photographer_section article h3, h4, h5 {
-    margin: 0;
-}
-
-.photographer_section article img {
-    height: 200px;
-    width: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-    
-}
 
 .shadow {
     box-shadow: 0 4px 12px 0 #0004;

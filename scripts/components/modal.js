@@ -1,6 +1,6 @@
 const Modal = {
 
-    create : (pTitle, pBody, externalOpenButton = null) => {
+    create : (/** @type {string} */ pTitle, /** @type {any} */ pBody, externalOpenButton = null) => {
         // external window - on click : close
         const clickAway = document.createElement('div');
         clickAway.classList.add('modal-click-away');
@@ -42,11 +42,13 @@ const Modal = {
         return clickAway
     },
 
-    open: (modal) => {
+    open: (/** @type {HTMLElement} */ modal) => {
         modal.classList.remove('hidden');
     },
 
-    close : (modal) => {
+    close : (/** @type {HTMLElement} */ modal) => {
         modal.classList.add('hidden');
     }
 }
+
+export default Modal;

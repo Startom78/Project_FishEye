@@ -17,27 +17,34 @@ export const photographerTemplate = (photographer, medias) => {
     
     function createCard() {
         const article = document.createElement( 'article' );
+        article.classList.add('card-index');
         const photographerUrl = `photographer.html?id=${id}`;
         const link = document.createElement('a');
         link.setAttribute('href', photographerUrl);
+        link.classList.add('card-link');
+        const imgContainer = document.createElement('div');
+        imgContainer.classList.add('avatar');
         const img = document.createElement( 'img' );
-        img.classList.add("shadow")
         img.setAttribute("src", picture)
-        img.setAttribute("alt", `photo de profil de ${name}`)
+        img.setAttribute("alt", `photo de profil de ${name}`);
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
-        link.appendChild(img);
-        link.appendChild(h2);
+        const description = document.createElement('div');
+        description.classList.add('card-description');
         const h3 = document.createElement( 'h3' );
         h3.textContent = city + (", ") + country;
         const h4 = document.createElement( 'h4' );
         h4.textContent = tagline;
         const h5 = document.createElement( 'h5' );
         h5.textContent = price + ("€/jour");
+        imgContainer.appendChild(img);
+        link.appendChild(imgContainer);
+        link.appendChild(h2);
+        description.appendChild(h3);
+        description.appendChild(h4);
+        description.appendChild(h5);
         article.appendChild(link);
-        article.appendChild(h3);
-        article.appendChild(h4);
-        article.appendChild(h5);
+        article.appendChild(description);
         return (article);
     }
     function createPhotographerBanner() {
@@ -59,22 +66,25 @@ export const photographerTemplate = (photographer, medias) => {
         const h4 = document.createElement('h4');
         h4.classList.add('h4Photographer');
         h4.textContent = tagline;
+        const imgContainer = document.createElement('div');
+        imgContainer.classList.add('avatar');
         const img = document.createElement('img');
-        img.classList.add('imgProfile')
-        img.setAttribute('src', picture)
-        img.setAttribute('alt', `photo de profil de ${name}`)
+        img.classList.add('imgProfile');
+        img.setAttribute('src', picture);
+        img.setAttribute('alt', `photo de profil de ${name}`);
+        imgContainer.appendChild(img);
         nameCityCountryTagline.appendChild(h1);
         nameCityCountryTagline.appendChild(cityCountry);
         nameCityCountryTagline.appendChild(h4);
         
-        return {nameCityCountryTagline, img};
+        return {nameCityCountryTagline, img: imgContainer};
     }
     function createCaroussel() {
          
-      const cards = document.createElement('div');
-      cards.classList.add('cards');
+      const cards = document.querySelector('.cards');
       medias.forEach(media => {
-        if (media.image) {
+        
+        if (!media.video) {
             const card = document.createElement('div');
             card.classList.add('card')
             const img = document.createElement('img');
@@ -87,7 +97,7 @@ export const photographerTemplate = (photographer, medias) => {
             const numberLikes = document.createElement('numberLikes');
             numberLikes.textContent = media.likes;
             const heart = document.createElement('i');
-            heart.classList.add('fa-heart');
+            heart.classList.add('fa', 'fa-heart');
             titleLikes.appendChild(title);
             titleLikes.appendChild(numberLikes);
             titleLikes.appendChild(heart);
@@ -96,13 +106,15 @@ export const photographerTemplate = (photographer, medias) => {
             cards.appendChild(card);
         } 
         else {
+            console.log(media);
             const card = document.createElement('div');
             card.classList.add('card')
             const video = document.createElement('video');
-            video.setAttribute('source', `assets/images/media/${name}/${media.video}`)
+            video.setAttribute('src', `assets/images/media/${name}/${media.video}`)
             video.setAttribute('alt', "video de " + name);
+            video.setAttribute('controls', 'true');
             card.appendChild(video);
-            video.appendChild(cards);
+            cards.appendChild(card);
         }
         //cards.appendChild();
         // creer balise pour vidéos
