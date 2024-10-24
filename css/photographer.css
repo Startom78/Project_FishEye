@@ -139,20 +139,59 @@ h1 {
     border-radius: 5px;
     border: 1px solid red;
     overflow: hidden;
+    & img, video {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+
+    & .infoCard {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: 24px;
+        color:#901C1C;
+        border: 1px solid purple;
+        & .numberLikesContainer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: yellow;
+        }
+    }
+
 }
 
-.card img, video {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-}
-
-.card .titleLikes {
+.totalLikesPriceContainer {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    background-color: #DB8876;
+    border: 1px solid turquoise;
     font-size: 24px;
-    color:#901C1C;
-    ;
-    border: 1px solid purple;
+    font-weight: 500;
+    border-radius: 5px;
+    width: 375px;
+    height: 60px;
+    padding: 0 20px 0 20px;
+    right: 0;
+    & .likesHeart{
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        border: 1px solid green;
+    }
+
+    & .totalLikesAndPriceCss {
+        border: 1px solid purple;
+    }
+
+    & .fa-heart {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid yellow;
+        color: red;
+    }
 }
+

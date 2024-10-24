@@ -8,13 +8,29 @@ export const photographerTemplate = (photographer, medias) => {
     /**  
      * @returns {photographerWithPicture} 
     */
-    const extractPhotographer = () => {
-        const { name, id, portrait, city, country, tagline, price } = photographer;
-        const picture = `assets/images/photographers/${portrait}`;
-        return { name, id,  picture, city, country, tagline, price };
+
+   const extractPhotographer = () => {
+       const { name, id, portrait, city, country, tagline, price } = photographer;
+       const picture = `assets/images/photographers/${portrait}`;
+       return { name, id,  picture, city, country, tagline, price };
     }
     const { name, id, picture, city, country, tagline, price } = extractPhotographer();
+
+    function calculateTotalLikes() {
+        console.log(medias);
+        if (medias === undefined) {
+            console.log("Aucun média trouvé");
+            return 0;
+        } 
+        else {
+            const totalLikes = medias.reduce((total,media) => total + media.likes, 0);
+            return totalLikes;
+        }
+    } 
+    const totalLikesValue = calculateTotalLikes();
+
     
+
     function createCard() {
         const article = document.createElement( 'article' );
         article.classList.add('card-index');
@@ -47,6 +63,7 @@ export const photographerTemplate = (photographer, medias) => {
         article.appendChild(description);
         return (article);
     }
+
     function createPhotographerBanner() {
         const nameCityCountryTagline = document.createElement('div')
         nameCityCountryTagline.classList.add('ptgInfo')
@@ -79,6 +96,45 @@ export const photographerTemplate = (photographer, medias) => {
         
         return {nameCityCountryTagline, img: imgContainer};
     }
+
+    function createTotalLikes() {
+        
+        const totalLikesPriceContainer = document.createElement('article');
+        totalLikesPriceContainer.classList.add('totalLikesPriceContainer');
+        console.log('je suis la !');
+        const likesHeart = document.createElement('div');
+        likesHeart.classList.add('likesHeart');
+
+        
+        const totalLikes = document.createElement('p');
+        totalLikes.classList.add('totalLikesAndPriceCss');
+        totalLikes.textContent = totalLikesValue.toString();
+
+        const heart = document.createElement('i');
+        heart.classList.add('fa', 'fa-heart');
+
+        const pricePerDay = document.createElement('div');
+        pricePerDay.classList.add('pricePerDay');
+        const price = document.createElement('p');
+        price.textContent = photographer.price.toString() + '€' + ' / jour';
+
+        likesHeart.appendChild(totalLikes);
+        likesHeart.appendChild(heart);
+        pricePerDay.appendChild(price);
+        totalLikesPriceContainer.appendChild(likesHeart);
+        totalLikesPriceContainer.appendChild(pricePerDay);
+
+        return totalLikesPriceContainer;
+    }
+    const main = document.getElementById("main");
+    const totalLikesContainer = createTotalLikes();
+    main.appendChild(totalLikesContainer);
+    
+    
+
+    
+    
+
     function createCaroussel() {
          
       const cards = document.querySelector('.cards');
@@ -87,39 +143,65 @@ export const photographerTemplate = (photographer, medias) => {
         if (!media.video) {
             const card = document.createElement('div');
             card.classList.add('card')
+
             const img = document.createElement('img');
             img.setAttribute('src', `assets/images/media/${name}/${media.image}`)
             img.setAttribute('alt', "image de " + name);
-            const titleLikes = document.createElement('div')
-            titleLikes.classList.add('titleLikes')
-            const title = document.createElement('div')
+
+            const infoCard = document.createElement('div')
+            infoCard.classList.add('infoCard')
+
+            const title = document.createElement('div');
             title.textContent = media.title;
-            const numberLikes = document.createElement('numberLikes');
-            numberLikes.textContent = media.likes;
+
+            const numberLikesContainer = document.createElement('div');
+            numberLikesContainer.classList.add('numberLikesContainer');
+            
             const heart = document.createElement('i');
             heart.classList.add('fa', 'fa-heart');
-            titleLikes.appendChild(title);
-            titleLikes.appendChild(numberLikes);
-            titleLikes.appendChild(heart);
+            numberLikesContainer.textContent = media.likes.toString();
+            
+            numberLikesContainer.appendChild(heart);
+            infoCard.appendChild(title);
+            infoCard.appendChild(numberLikesContainer);
             card.appendChild(img);
-            card.appendChild(titleLikes);
+            card.appendChild(infoCard);
             cards.appendChild(card);
         } 
         else {
-            console.log(media);
             const card = document.createElement('div');
-            card.classList.add('card')
+            card.classList.add('card');
+
+            const infoCard = document.createElement('div')
+            infoCard.classList.add('infoCard')
+
             const video = document.createElement('video');
             video.setAttribute('src', `assets/images/media/${name}/${media.video}`)
             video.setAttribute('alt', "video de " + name);
             video.setAttribute('controls', 'true');
+
+            const title = document.createElement('div');
+            title.textContent = media.title;
+
+            const numberLikesContainer = document.createElement('div');
+            numberLikesContainer.classList.add('numberLikesContainer');
+            
+            const heart = document.createElement('i');
+            heart.classList.add('fa', 'fa-heart');
+            numberLikesContainer.textContent = media.likes.toString();
+
+            numberLikesContainer.appendChild(heart);
+            infoCard.appendChild(title);
+            infoCard.appendChild(numberLikesContainer);
             card.appendChild(video);
+            card.appendChild(infoCard);
             cards.appendChild(card);
-        }
-        //cards.appendChild();
-        // creer balise pour vidéos
-      })
+            }  
+        })
       return cards
     }
-    return { createPhotographerBanner, createCard, createCaroussel }
+
+    
+    
+    return {createPhotographerBanner, createCard, createCaroussel, createTotalLikes};
 }
