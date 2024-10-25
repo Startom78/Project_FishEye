@@ -162,6 +162,7 @@ h1 {
 
 }
 
+
 .totalLikesPriceContainer {
     display: flex;
     justify-content: space-between;
@@ -174,7 +175,6 @@ h1 {
     width: 375px;
     height: 60px;
     padding: 0 20px 0 20px;
-    right: 0;
     & .likesHeart{
         display: flex;
         flex-direction: row;

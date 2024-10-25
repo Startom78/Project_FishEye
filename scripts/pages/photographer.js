@@ -19,28 +19,31 @@ window.onload = () => {
         // Je récupère les données et les médias du photographe en fonction de son id
         const ptg = data.photographers.find(p => ""+p.id === ""+id);
         const media = data.media.filter(m => ""+m.photographerId === ""+id);
-        displayBanner(ptg);
-        displayCaroussel(ptg,media);
+        const photographerManager = photographerTemplate(ptg, media);
+        displayBanner(photographerManager, ptg);
+        displayCaroussel(photographerManager, ptg, media);
     })
      .catch(error => console.error('Error:', error)); 
 }
 
 /**
  * @function displayBanner
- * @param {photographer} photographer 
+ * @param {Photographer} photographer 
  */
- function displayBanner(photographer) {
+ function displayBanner(photographerManager, photographer) {
+    
     const Banner = document.querySelector(".photograph-header");
-    const photographerManager = photographerTemplate(photographer);
     const userBannerDOM = photographerManager.createPhotographerBanner();
     if(Banner === null) {console.error("Banner introuvable"); return}
     Banner.insertBefore(userBannerDOM.nameCityCountryTagline, document.querySelector('#contact_opener'));
     Banner.appendChild(userBannerDOM.img);
+    const main = document.getElementById("main");
+    const totalLikesContainer = photographerManager.createTotalLikes();
+    main.appendChild(totalLikesContainer);
 }
 
-function displayCaroussel(photographer, medias) {
+function displayCaroussel(photographerManager, photographer, medias) {
     const caroussel = document.getElementById("main");
-    const photographerManager = photographerTemplate(photographer, medias,);
     const carousselContent = photographerManager.createCaroussel();
     caroussel.appendChild(carousselContent);
 }

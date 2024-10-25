@@ -1,12 +1,15 @@
+import Lightbox from "../components/lightbox/lightbox.js";
+import Modal from "../components/modal.js";
+
 /** 
  * @function photographerTemplate
- * @param {photographer} photographer 
- * @param {medias} [medias] 
- * @returns {photographerReturnType} 
+ * @param {Photographer} photographer 
+ * @param {Medias} [medias] 
+ * @returns {PhotographerReturnType} 
  */
 export const photographerTemplate = (photographer, medias) => {
     /**  
-     * @returns {photographerWithPicture} 
+     * @returns {PhotographerWithPicture} 
     */
 
    const extractPhotographer = () => {
@@ -15,21 +18,6 @@ export const photographerTemplate = (photographer, medias) => {
        return { name, id,  picture, city, country, tagline, price };
     }
     const { name, id, picture, city, country, tagline, price } = extractPhotographer();
-
-    function calculateTotalLikes() {
-        console.log(medias);
-        if (medias === undefined) {
-            console.log("Aucun média trouvé");
-            return 0;
-        } 
-        else {
-            const totalLikes = medias.reduce((total,media) => total + media.likes, 0);
-            return totalLikes;
-        }
-    } 
-    const totalLikesValue = calculateTotalLikes();
-
-    
 
     function createCard() {
         const article = document.createElement( 'article' );
@@ -98,8 +86,13 @@ export const photographerTemplate = (photographer, medias) => {
     }
 
     function createTotalLikes() {
-        
-        const totalLikesPriceContainer = document.createElement('article');
+        const fixedContainer = document.createElement('div');
+        fixedContainer.classList.add('fixedBottom');
+
+        const wrapperContainer = document.createElement('div');
+        wrapperContainer.classList.add('wrapper', 'items-end', 'flex');
+
+        const totalLikesPriceContainer = document.createElement('div');
         totalLikesPriceContainer.classList.add('totalLikesPriceContainer');
         console.log('je suis la !');
         const likesHeart = document.createElement('div');
@@ -108,7 +101,7 @@ export const photographerTemplate = (photographer, medias) => {
         
         const totalLikes = document.createElement('p');
         totalLikes.classList.add('totalLikesAndPriceCss');
-        totalLikes.textContent = totalLikesValue.toString();
+        totalLikes.textContent = "0";
 
         const heart = document.createElement('i');
         heart.classList.add('fa', 'fa-heart');
@@ -123,22 +116,32 @@ export const photographerTemplate = (photographer, medias) => {
         pricePerDay.appendChild(price);
         totalLikesPriceContainer.appendChild(likesHeart);
         totalLikesPriceContainer.appendChild(pricePerDay);
+        wrapperContainer.appendChild(totalLikesPriceContainer);
+        fixedContainer.appendChild(wrapperContainer);
 
-        return totalLikesPriceContainer;
+        return fixedContainer;
     }
-    const main = document.getElementById("main");
-    const totalLikesContainer = createTotalLikes();
-    main.appendChild(totalLikesContainer);
     
     
+    /**
+     * 
+     * @param {Medias} medias 
+     */
+
+    function updateTotalLikes(medias) {
+        const totalLikes = document.querySelector('.totalLikesPriceContainer .totalLikesAndPriceCss');
+        totalLikes.textContent = ""+medias.reduce((total, media) => total + (+media.likes), 0);
+
+    }
 
     
     
 
     function createCaroussel() {
-         
+        const lightbox = Lightbox.create(medias, name);
+        
       const cards = document.querySelector('.cards');
-      medias.forEach(media => {
+      medias.forEach((media, index) => {
         
         if (!media.video) {
             const card = document.createElement('div');
@@ -147,7 +150,9 @@ export const photographerTemplate = (photographer, medias) => {
             const img = document.createElement('img');
             img.setAttribute('src', `assets/images/media/${name}/${media.image}`)
             img.setAttribute('alt', "image de " + name);
-
+            img.onclick = () => {
+                Lightbox.open(lightbox, name, medias, index);
+            }
             const infoCard = document.createElement('div')
             infoCard.classList.add('infoCard')
 
@@ -157,10 +162,19 @@ export const photographerTemplate = (photographer, medias) => {
             const numberLikesContainer = document.createElement('div');
             numberLikesContainer.classList.add('numberLikesContainer');
             
+            
             const heart = document.createElement('i');
             heart.classList.add('fa', 'fa-heart');
-            numberLikesContainer.textContent = media.likes.toString();
+
+            const numberLikes = document.createElement('span');
+            numberLikes.textContent = media.likes.toString();
+            numberLikesContainer.onclick = () => {
+                media.likes++;
+                numberLikes.textContent = media.likes.toString();
+                updateTotalLikes(medias);
+            }
             
+            numberLikesContainer.appendChild(numberLikes);
             numberLikesContainer.appendChild(heart);
             infoCard.appendChild(title);
             infoCard.appendChild(numberLikesContainer);
@@ -189,7 +203,11 @@ export const photographerTemplate = (photographer, medias) => {
             const heart = document.createElement('i');
             heart.classList.add('fa', 'fa-heart');
             numberLikesContainer.textContent = media.likes.toString();
-
+            heart.onclick = () => {
+                media.likes++;
+                numberLikesContainer.textContent = media.likes.toString();
+                updateTotalLikes(medias);
+            }
             numberLikesContainer.appendChild(heart);
             infoCard.appendChild(title);
             infoCard.appendChild(numberLikesContainer);
@@ -198,10 +216,11 @@ export const photographerTemplate = (photographer, medias) => {
             cards.appendChild(card);
             }  
         })
+        updateTotalLikes(medias);
       return cards
     }
 
     
     
-    return {createPhotographerBanner, createCard, createCaroussel, createTotalLikes};
+    return {createPhotographerBanner, createCard, createCaroussel, updateTotalLikes, createTotalLikes};
 }

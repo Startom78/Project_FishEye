@@ -1,4 +1,4 @@
-interface photographer {
+interface Photographer {
     name: string;
     id: number;
     portrait: string;
@@ -8,7 +8,7 @@ interface photographer {
     price: number;
 }
 
-interface photographerWithPicture {
+interface PhotographerWithPicture {
     name: string;
     id: number;
     picture: string;
@@ -18,7 +18,7 @@ interface photographerWithPicture {
     price: number;
 }
 
-interface media {
+interface Media {
     date: string;
     id: number;
     image: string;
@@ -28,12 +28,13 @@ interface media {
     price: number;
     title: string
 };
-type medias = media[];
+type Medias = Media[];
 
-type photographerReturnType = {
-    createTotalLikes: () => Node
+type PhotographerReturnType = {
+    updateTotalLikes: (medias: Medias) => void
     createCard: () => Node
     createPhotographerBanner: () => {nameCityCountryTagline: Node, img: Node}
     createCaroussel: () => Node
+    createTotalLikes: () => Node
     
  };
