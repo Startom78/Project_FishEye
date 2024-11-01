@@ -22,25 +22,33 @@ export const photographerTemplate = (photographer, medias) => {
     function createCard() {
         const article = document.createElement( 'article' );
         article.classList.add('card-index');
+
         const photographerUrl = `photographer.html?id=${id}`;
         const link = document.createElement('a');
         link.setAttribute('href', photographerUrl);
         link.classList.add('card-link');
+
         const imgContainer = document.createElement('div');
         imgContainer.classList.add('avatar');
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture)
         img.setAttribute("alt", `photo de profil de ${name}`);
+
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
+
         const description = document.createElement('div');
         description.classList.add('card-description');
+
         const h3 = document.createElement( 'h3' );
         h3.textContent = city + (", ") + country;
+
         const h4 = document.createElement( 'h4' );
         h4.textContent = tagline;
+
         const h5 = document.createElement( 'h5' );
         h5.textContent = price + ("€/jour");
+
         imgContainer.appendChild(img);
         link.appendChild(imgContainer);
         link.appendChild(h2);
@@ -55,28 +63,35 @@ export const photographerTemplate = (photographer, medias) => {
     function createPhotographerBanner() {
         const nameCityCountryTagline = document.createElement('div')
         nameCityCountryTagline.classList.add('ptgInfo')
+
         const h1 = document.createElement('h1');
         h1.classList.add('h1Photographer')
         h1.textContent = name;
+
         const cityCountry = document.createElement('div');
         cityCountry.classList.add('cityCountry');
         const h2 = document.createElement('h2');
         h2.classList.add('h2Photographer')
         h2.textContent = city + ',';
+
         const h3 = document.createElement('h3');
         h3.classList.add('h3Photographer');
         h3.textContent  = country;
+
         cityCountry.appendChild(h2);
         cityCountry.appendChild(h3);
+
         const h4 = document.createElement('h4');
         h4.classList.add('h4Photographer');
         h4.textContent = tagline;
+
         const imgContainer = document.createElement('div');
         imgContainer.classList.add('avatar');
         const img = document.createElement('img');
         img.classList.add('imgProfile');
         img.setAttribute('src', picture);
         img.setAttribute('alt', `photo de profil de ${name}`);
+
         imgContainer.appendChild(img);
         nameCityCountryTagline.appendChild(h1);
         nameCityCountryTagline.appendChild(cityCountry);
@@ -104,7 +119,7 @@ export const photographerTemplate = (photographer, medias) => {
         totalLikes.textContent = "0";
 
         const heart = document.createElement('i');
-        heart.classList.add('fa', 'fa-heart');
+        heart.classList.add('fa-solid', 'fa-heart');
 
         const pricePerDay = document.createElement('div');
         pricePerDay.classList.add('pricePerDay');
@@ -138,7 +153,7 @@ export const photographerTemplate = (photographer, medias) => {
     
 
     function createCaroussel() {
-        const lightbox = Lightbox.create(medias, name);
+        const lightbox = Lightbox.create();
         
       const cards = document.querySelector('.cards');
       medias.forEach((media, index) => {
@@ -151,7 +166,7 @@ export const photographerTemplate = (photographer, medias) => {
             img.setAttribute('src', `assets/images/media/${name}/${media.image}`)
             img.setAttribute('alt', "image de " + name);
             img.onclick = () => {
-                Lightbox.open(lightbox, name, medias, index);
+                Lightbox.open(lightbox, medias, name, index);
             }
             const infoCard = document.createElement('div')
             infoCard.classList.add('infoCard')
@@ -164,7 +179,7 @@ export const photographerTemplate = (photographer, medias) => {
             
             
             const heart = document.createElement('i');
-            heart.classList.add('fa', 'fa-heart');
+            heart.classList.add('fa-solid', 'fa-heart');
 
             const numberLikes = document.createElement('span');
             numberLikes.textContent = media.likes.toString();
@@ -193,6 +208,9 @@ export const photographerTemplate = (photographer, medias) => {
             video.setAttribute('src', `assets/images/media/${name}/${media.video}`)
             video.setAttribute('alt', "video de " + name);
             video.setAttribute('controls', 'true');
+            video.onclick = () => {
+                Lightbox.open(lightbox, medias, name, index);
+            }
 
             const title = document.createElement('div');
             title.textContent = media.title;

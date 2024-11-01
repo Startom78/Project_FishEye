@@ -11,7 +11,6 @@
 }
 
 .photograph-header {
-    border: 1px solid brown;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -22,7 +21,6 @@
     
 
     & .cityCountry {
-        border: 1px solid purple;
         color: #901C1C;
         display: flex;
         flex-direction: row;
@@ -31,9 +29,7 @@
     }
     
     & .ptgInfo {
-        border: 1px solid green;
         padding-left: 20px;
-        
     }
 
     & h1 {
@@ -126,7 +122,6 @@ h1 {
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    border: 1px solid blue;
     justify-items: center;
     gap: 20px;
     
@@ -137,12 +132,12 @@ h1 {
     flex-direction: column;
     width: 100%;
     border-radius: 5px;
-    border: 1px solid red;
     overflow: hidden;
     & img, video {
         width: 100%;
         height: 300px;
         object-fit: cover;
+        cursor: pointer;
     }
 
     & .infoCard {
@@ -151,7 +146,7 @@ h1 {
         justify-content: space-between;
         font-size: 24px;
         color:#901C1C;
-        border: 1px solid purple;
+
         & .numberLikesContainer {
             display: flex;
             align-items: center;
@@ -168,7 +163,6 @@ h1 {
     justify-content: space-between;
     align-items: center;
     background-color: #DB8876;
-    border: 1px solid turquoise;
     font-size: 24px;
     font-weight: 500;
     border-radius: 5px;
@@ -179,18 +173,12 @@ h1 {
         display: flex;
         flex-direction: row;
         gap: 5px;
-        border: 1px solid green;
-    }
-
-    & .totalLikesAndPriceCss {
-        border: 1px solid purple;
     }
 
     & .fa-heart {
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 1px solid yellow;
         color: red;
     }
 }

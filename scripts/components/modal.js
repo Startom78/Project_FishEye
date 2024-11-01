@@ -10,6 +10,8 @@ const Modal = {
         window.classList.add('modal-window');
         clickAway.appendChild(window);
 
+        
+
         // window header
         const header = document.createElement('div');
         header.classList.add('modal-header');
@@ -50,5 +52,4 @@ const Modal = {
         modal.classList.add('hidden');
     }
 }
-
 export default Modal;
