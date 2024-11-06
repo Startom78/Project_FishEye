@@ -238,7 +238,21 @@ export const photographerTemplate = (photographer, medias) => {
       return cards
     }
 
+    function createSelectionLightBox() {
+        const menu = document.querySelector('.content');
+        if (menu){ 
+            console.log("je suis bien détecté");
+        }
+        else {
+            console.log("faux")};
+        const sortText = document.createElement('div');
+        sortText.classList.add('textSelection');
+        sortText.textContent = "trier par :";
+        menu.appendChild(sortText);
+        return menu;
+    }
+
     
     
-    return {createPhotographerBanner, createCard, createCaroussel, updateTotalLikes, createTotalLikes};
+    return {createPhotographerBanner, createCard, createCaroussel, updateTotalLikes, createTotalLikes, createSelectionLightBox};
 }

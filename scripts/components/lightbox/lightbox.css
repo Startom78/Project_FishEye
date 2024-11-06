@@ -1,6 +1,5 @@
 .lightbox {
-    background-color: green;
-    width: 80vw;
+    background-color: white;
     
 
     & .body{
@@ -17,6 +16,11 @@
         width: 100%;
         height: 600px;
         gap: 20px;
+
+        & .leftArrow, .rightArrow{
+            font-size: 48px;
+            color:#901C1C;
+        }
     }
 
     & .mediaContainer{
@@ -24,10 +28,12 @@
         height: 100%;
         overflow: hidden;
         border: 1px solid orange;
+        
 
         & img{
             width: 100%;
             height: 100%;
+            box-shadow: 15px 0 10px 0 rgba(0,0,0, 0.5);
             object-fit: contain;
         }
 
@@ -40,10 +46,12 @@
     }
 
     & .description{
-        
         border: 1px solid purple;
-        width: 100%;
+        color:#901C1C;
+        width: fit-content;
+        margin-left: 49px;
         min-height: 40px;
+        font-size: 24px;
     }
 
     & .hidden{

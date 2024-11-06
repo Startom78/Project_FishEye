@@ -36,5 +36,5 @@ type PhotographerReturnType = {
     createPhotographerBanner: () => {nameCityCountryTagline: Node, img: Node}
     createCaroussel: () => Node
     createTotalLikes: () => Node
-    
+    createSelectionLightBox: () => Node
  };

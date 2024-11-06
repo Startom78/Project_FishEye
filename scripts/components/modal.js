@@ -20,7 +20,7 @@ const Modal = {
         window.appendChild(header);
         const closeButton = document.createElement('div');
         closeButton.classList.add('modal-close-button');
-        closeButton.textContent = 'X';
+        closeButton.innerHTML = `<i class="fa-solid fa-x"></i>`;
         closeButton.onclick = () => Modal.close(clickAway);
         header.appendChild(title);
         header.appendChild(closeButton);
