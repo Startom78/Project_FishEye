@@ -1,5 +1,6 @@
 import Lightbox from "../components/lightbox/lightbox.js";
 import Modal from "../components/modal.js";
+import Options from "../components/options/options.js";
 
 /** 
  * @function photographerTemplate
@@ -18,6 +19,16 @@ export const photographerTemplate = (photographer, medias) => {
        return { name, id,  picture, city, country, tagline, price };
     }
     const { name, id, picture, city, country, tagline, price } = extractPhotographer();
+
+    function createSelectionLightBox() {
+        const menu = document.querySelector('.content');
+        console.log(menu);
+        const modal = document.createElement('div');
+        modal.classList.add('textSelection');
+        modal.textContent = "Popularité";
+        menu.appendChild(modal);
+        return menu;
+    } 
 
     function createCard() {
         const article = document.createElement( 'article' );
@@ -152,9 +163,10 @@ export const photographerTemplate = (photographer, medias) => {
     
     
 
-    function createCaroussel() {
-        const lightbox = Lightbox.create();
-        
+    function createCaroussel(medias) {
+        const lightBoxes = document.querySelectorAll('.modal-click-away .lightbox');
+        lightBoxes.forEach(lb => lb.parentElement.remove());
+      const lightbox = Lightbox.create(); 
       const cards = document.querySelector('.cards');
       medias.forEach((media, index) => {
         
@@ -237,22 +249,29 @@ export const photographerTemplate = (photographer, medias) => {
         updateTotalLikes(medias);
       return cards
     }
-
-    function createSelectionLightBox() {
-        const menu = document.querySelector('.content');
-        if (menu){ 
-            console.log("je suis bien détecté");
-        }
-        else {
-            console.log("faux")};
-        const sortText = document.createElement('div');
-        sortText.classList.add('textSelection');
-        sortText.textContent = "trier par :";
-        menu.appendChild(sortText);
-        return menu;
-    }
-
-    
-    
     return {createPhotographerBanner, createCard, createCaroussel, updateTotalLikes, createTotalLikes, createSelectionLightBox};
+}
+
+/**
+ * 
+ * @returns {HTMLSelectElement}
+ */
+function getDropdown(){
+
+    return /** @type {HTMLSelectElement} */ (document.getElementById('options'));
+}
+export function changeOption(medias, onSort) {
+    const selector =  getDropdown(); 
+    const onChange = () =>  {
+        switch (selector.value){
+            case "Popularité": options.setPopularity();
+                break
+            case "Titre": options.setTitle();
+                break
+            case "Date": options.setDate();
+                break
+        } 
+    }
+    const options = Options(medias, onSort);
+    selector.onchange = onChange;
 }

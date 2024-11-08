@@ -9,6 +9,7 @@ const Lightbox = {
         const window = modal.querySelector('.modal-window');
         window.classList.add('lightbox');
         
+        
         return modal;
     },
 

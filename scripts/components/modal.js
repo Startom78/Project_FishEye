@@ -2,6 +2,7 @@ const Modal = {
 
     create : (/** @type {string} */ pTitle, /** @type {any} */ pBody, externalOpenButton = null) => {
         // external window - on click : close
+        
         const clickAway = document.createElement('div');
         clickAway.classList.add('modal-click-away');
     

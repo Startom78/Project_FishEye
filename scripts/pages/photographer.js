@@ -1,6 +1,6 @@
 //Mettre le code JavaScript lié à la page photographer.html
 import Modal from "../components/modal.js";
-import { photographerTemplate } from "../templates/photographer.js";
+import { changeOption, photographerTemplate } from "../templates/photographer.js";
 function createContactModal() {
     const template = document.querySelector('#template_contact');
     if (template instanceof HTMLTemplateElement) {
@@ -12,6 +12,7 @@ window.onload = () => {
     const params = new URLSearchParams(window.location.search); 
     const id = params.get('id');
     createContactModal();
+    
     // Fetch photographers and media data
     fetch("../data/photographers.json")
     .then(res => res.json())
@@ -22,6 +23,10 @@ window.onload = () => {
         const photographerManager = photographerTemplate(ptg, media);
         displayBanner(photographerManager, ptg);
         displayCaroussel(photographerManager, ptg, media);
+        const sortMedias = (medias) => {
+            displayCaroussel(photographerManager, ptg, medias);
+        }
+        changeOption(media, sortMedias);
     })
      .catch(error => console.error('Error:', error)); 
 }
@@ -44,7 +49,9 @@ window.onload = () => {
 
 function displayCaroussel(photographerManager, photographer, medias) {
     const caroussel = document.getElementById("main");
-    const carousselContent = photographerManager.createCaroussel();
+    const cards = document.querySelector('.cards');
+    cards.innerHTML = '';
+    const carousselContent = photographerManager.createCaroussel(medias);
     caroussel.appendChild(carousselContent);
 }
 
