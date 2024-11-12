@@ -177,6 +177,11 @@ h1 {
             align-items: center;
             gap: 10px;
         }
+
+        & .clicked{
+            border-radius: 0 0 5px 5px;
+            background-color: turquoise;
+        }
     }
 
 }

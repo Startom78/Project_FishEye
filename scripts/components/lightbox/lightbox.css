@@ -29,8 +29,6 @@
         flex: 1;
         height: 100%;
         overflow: hidden;
-        border: 1px solid orange;
-        
 
         & img{
             width: 100%;
@@ -48,7 +46,6 @@
     }
 
     & .description{
-        border: 1px solid purple;
         color:#901C1C;
         width: fit-content;
         margin-left: 49px;

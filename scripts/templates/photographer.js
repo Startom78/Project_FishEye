@@ -196,9 +196,24 @@ export const photographerTemplate = (photographer, medias) => {
             const numberLikes = document.createElement('span');
             numberLikes.textContent = media.likes.toString();
             numberLikesContainer.onclick = () => {
-                media.likes++;
-                numberLikes.textContent = media.likes.toString();
-                updateTotalLikes(medias);
+                const likedMedia = JSON.stringify(media.title);
+                numberLikesContainer.classList.toggle('clicked');
+                let likedArray = JSON.parse(localStorage.getItem('Liked')) || [];
+                if (!likedArray.some(item => JSON.stringify(item) === likedMedia)) {
+                    likedArray.push(media.title);
+                    localStorage.setItem('Liked', JSON.stringify(likedArray));
+                    media.likes++;
+                    
+                    numberLikes.textContent = media.likes.toString();
+                    updateTotalLikes(medias);
+                }
+                else {
+                    likedArray = likedArray.filter(item => JSON.stringify(item) !== likedMedia);
+                    localStorage.setItem('Liked', JSON.stringify(likedArray));
+                    media.likes--;
+                    numberLikes.textContent = media.likes.toString();
+                    updateTotalLikes(medias);
+                }
             }
             
             numberLikesContainer.appendChild(numberLikes);
@@ -229,15 +244,36 @@ export const photographerTemplate = (photographer, medias) => {
 
             const numberLikesContainer = document.createElement('div');
             numberLikesContainer.classList.add('numberLikesContainer');
+
+           
             
             const heart = document.createElement('i');
             heart.classList.add('fa', 'fa-heart');
-            numberLikesContainer.textContent = media.likes.toString();
-            heart.onclick = () => {
-                media.likes++;
-                numberLikesContainer.textContent = media.likes.toString();
-                updateTotalLikes(medias);
+
+            const numberLikes = document.createElement('span');
+            numberLikes.textContent = media.likes.toString();
+            numberLikesContainer.onclick = () => {
+                numberLikesContainer.classList.toggle('clicked');
+                const likedMedia = JSON.stringify(media.title);
+                let likedArray = JSON.parse(localStorage.getItem('Liked')) || [];
+                if (!likedArray.some(item => JSON.stringify(item) === likedMedia)) {
+                    likedArray.push(media.title);
+                    localStorage.setItem('Liked', JSON.stringify(likedArray));
+                 media.likes++;
+                 numberLikes.textContent = media.likes.toString();
+                 updateTotalLikes(medias);
             }
+            else {
+                likedArray = likedArray.filter(item => JSON.stringify(item) !== likedMedia);
+                localStorage.setItem('Liked', JSON.stringify(likedArray));
+                media.likes--;
+                numberLikes.textContent = media.likes.toString();
+            updateTotalLikes(medias);
+            }
+
+        }
+            
+            numberLikesContainer.appendChild(numberLikes);
             numberLikesContainer.appendChild(heart);
             infoCard.appendChild(title);
             infoCard.appendChild(numberLikesContainer);
