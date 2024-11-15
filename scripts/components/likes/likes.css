@@ -1,0 +1,40 @@
+.hearts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 26px;
+    font-size: 24px;
+    
+    & .fullheart {
+        color: white;
+        -moz-text-stroke-width: 1px;
+        -moz-text-stroke-color: black;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: black;                     
+        transition: opacity 0.25s ease-in-out;
+        position: absolute;
+
+    }
+
+    & .heart-2 {
+        background: linear-gradient(0deg, rgba(255,121,218,1) 35%, rgba(147,86,220,1) 100%);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -moz-text-stroke-width: 1px;
+        -moz-text-stroke-color: #9356DC;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: #9356DC;
+
+        text-shadow: unset;
+        color: transparent;
+        opacity: 0;
+
+    }
+
+    &.checked .heart-2 {
+        opacity: 1;
+    }
+
+    
+}

@@ -13,16 +13,19 @@
 .photograph-header {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     background-color: #FAFAFA;
-    height: 300px;
-    padding: 0 50px;
+    padding: 50px;
+    gap: 20px;
     
 
     & .cityCountry {
         color: #901C1C;
         display: flex;
+        font-size: 24px;
+        font-weight: 400;
         flex-direction: row;
         align-items: center;
         gap: 5px;
@@ -34,6 +37,12 @@
 
     & h1 {
         font-weight: 400;
+    }
+
+    & .tagline{
+        font: 18px;
+        font-weight: 400;
+        color:  #525252;
     }
 }
 

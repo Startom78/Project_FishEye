@@ -2,6 +2,7 @@ export const Options = (medias, onSort) => {
     function setPopularity() {
         medias.sort((a,b) => b.likes - a.likes);
         onSort(medias);
+        
         return medias;
     }
 

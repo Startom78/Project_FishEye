@@ -1,313 +1,266 @@
 import Lightbox from "../components/lightbox/lightbox.js";
-import Modal from "../components/modal.js";
+import createHeart from "../components/likes/likes.js";
 import Options from "../components/options/options.js";
 
-/** 
+/**
  * @function photographerTemplate
- * @param {Photographer} photographer 
- * @param {Medias} [medias] 
- * @returns {PhotographerReturnType} 
+ * @param {Photographer} photographer
+ * @param {Medias} [medias]
+ * @returns {PhotographerReturnType}
  */
 export const photographerTemplate = (photographer, medias) => {
-    /**  
-     * @returns {PhotographerWithPicture} 
-    */
+  /**
+   * @returns {PhotographerWithPicture}
+   */
 
-   const extractPhotographer = () => {
-       const { name, id, portrait, city, country, tagline, price } = photographer;
-       const picture = `assets/images/photographers/${portrait}`;
-       return { name, id,  picture, city, country, tagline, price };
-    }
-    const { name, id, picture, city, country, tagline, price } = extractPhotographer();
+  const extractPhotographer = () => {
+    const { name, id, portrait, city, country, tagline, price } = photographer;
+    const picture = `assets/images/photographers/${portrait}`;
+    return { name, id, picture, city, country, tagline, price };
+  };
+  const { name, id, picture, city, country, tagline, price } =
+    extractPhotographer();
 
-    function createSelectionLightBox() {
-        const menu = document.querySelector('.content');
-        console.log(menu);
-        const modal = document.createElement('div');
-        modal.classList.add('textSelection');
-        modal.textContent = "Popularité";
-        menu.appendChild(modal);
-        return menu;
-    } 
+  function createSelectionLightBox() {
+    const menu = document.querySelector(".content");
+    console.log(menu);
+    const modal = document.createElement("div");
+    modal.classList.add("textSelection");
+    modal.textContent = "Popularité";
+    menu.appendChild(modal);
+    return menu;
+  }
 
-    function createCard() {
-        const article = document.createElement( 'article' );
-        article.classList.add('card-index');
+  function createCard() {
+    const article = document.createElement("article");
+    article.classList.add("card-index");
 
-        const photographerUrl = `photographer.html?id=${id}`;
-        const link = document.createElement('a');
-        link.setAttribute('href', photographerUrl);
-        link.classList.add('card-link');
+    const photographerUrl = `photographer.html?id=${id}`;
+    const link = document.createElement("a");
+    link.setAttribute("href", photographerUrl);
+    link.classList.add("card-link");
 
-        const imgContainer = document.createElement('div');
-        imgContainer.classList.add('avatar');
-        const img = document.createElement( 'img' );
-        img.setAttribute("src", picture)
-        img.setAttribute("alt", `photo de profil de ${name}`);
+    const imgContainer = document.createElement("div");
+    imgContainer.classList.add("avatar");
+    const img = document.createElement("img");
+    img.setAttribute("src", picture);
+    img.setAttribute("alt", `photo de profil de ${name}`);
 
-        const h2 = document.createElement( 'h2' );
-        h2.textContent = name;
+    const h2 = document.createElement("h2");
+    h2.textContent = name;
 
-        const description = document.createElement('div');
-        description.classList.add('card-description');
+    const description = document.createElement("div");
+    description.classList.add("card-description");
 
-        const h3 = document.createElement( 'h3' );
-        h3.textContent = city + (", ") + country;
+    const h3 = document.createElement("h3");
+    h3.textContent = city + ", " + country;
 
-        const h4 = document.createElement( 'h4' );
-        h4.textContent = tagline;
+    const h4 = document.createElement("h4");
+    h4.textContent = tagline;
 
-        const h5 = document.createElement( 'h5' );
-        h5.textContent = price + ("€/jour");
+    const h5 = document.createElement("h5");
+    h5.textContent = price + "€/jour";
 
-        imgContainer.appendChild(img);
-        link.appendChild(imgContainer);
-        link.appendChild(h2);
-        description.appendChild(h3);
-        description.appendChild(h4);
-        description.appendChild(h5);
-        article.appendChild(link);
-        article.appendChild(description);
-        return (article);
-    }
+    imgContainer.appendChild(img);
+    link.appendChild(imgContainer);
+    link.appendChild(h2);
+    description.appendChild(h3);
+    description.appendChild(h4);
+    description.appendChild(h5);
+    article.appendChild(link);
+    article.appendChild(description);
+    return article;
+  }
 
-    function createPhotographerBanner() {
-        const nameCityCountryTagline = document.createElement('div')
-        nameCityCountryTagline.classList.add('ptgInfo')
+  function createPhotographerBanner() {
+    const nameCityCountryTagline = document.createElement("div");
+    nameCityCountryTagline.classList.add("ptgInfo");
 
-        const h1 = document.createElement('h1');
-        h1.classList.add('h1Photographer')
-        h1.textContent = name;
+    const h1 = document.createElement("h1");
+    h1.classList.add("h1Photographer");
+    h1.textContent = name;
 
-        const cityCountry = document.createElement('div');
-        cityCountry.classList.add('cityCountry');
-        const h2 = document.createElement('h2');
-        h2.classList.add('h2Photographer')
-        h2.textContent = city + ',';
+    const cityCountry = document.createElement("div");
+    cityCountry.classList.add("cityCountry");
+    cityCountry.textContent = `${country}, ${city}`;
 
-        const h3 = document.createElement('h3');
-        h3.classList.add('h3Photographer');
-        h3.textContent  = country;
+    const taglineElement = document.createElement("p");
+    taglineElement.classList.add("tagline");
+    taglineElement.textContent = tagline;
 
-        cityCountry.appendChild(h2);
-        cityCountry.appendChild(h3);
+    const imgContainer = document.createElement("div");
+    imgContainer.classList.add("avatar");
+    const img = document.createElement("img");
+    img.classList.add("imgProfile");
+    img.setAttribute("src", picture);
+    img.setAttribute("alt", `photo de profil de ${name}`);
 
-        const h4 = document.createElement('h4');
-        h4.classList.add('h4Photographer');
-        h4.textContent = tagline;
+    imgContainer.appendChild(img);
+    nameCityCountryTagline.appendChild(h1);
+    nameCityCountryTagline.appendChild(cityCountry);
+    nameCityCountryTagline.appendChild(taglineElement);
 
-        const imgContainer = document.createElement('div');
-        imgContainer.classList.add('avatar');
-        const img = document.createElement('img');
-        img.classList.add('imgProfile');
-        img.setAttribute('src', picture);
-        img.setAttribute('alt', `photo de profil de ${name}`);
+    return { nameCityCountryTagline, img: imgContainer };
+  }
 
-        imgContainer.appendChild(img);
-        nameCityCountryTagline.appendChild(h1);
-        nameCityCountryTagline.appendChild(cityCountry);
-        nameCityCountryTagline.appendChild(h4);
-        
-        return {nameCityCountryTagline, img: imgContainer};
-    }
+  function createTotalLikes() {
+    const fixedContainer = document.createElement("div");
+    fixedContainer.classList.add("fixedBottom");
 
-    function createTotalLikes() {
-        const fixedContainer = document.createElement('div');
-        fixedContainer.classList.add('fixedBottom');
+    const wrapperContainer = document.createElement("div");
+    wrapperContainer.classList.add("wrapper", "items-end", "flex");
 
-        const wrapperContainer = document.createElement('div');
-        wrapperContainer.classList.add('wrapper', 'items-end', 'flex');
+    const totalLikesPriceContainer = document.createElement("div");
+    totalLikesPriceContainer.classList.add("totalLikesPriceContainer");
+    console.log("je suis la !");
+    const likesHeart = document.createElement("div");
+    likesHeart.classList.add("likesHeart");
 
-        const totalLikesPriceContainer = document.createElement('div');
-        totalLikesPriceContainer.classList.add('totalLikesPriceContainer');
-        console.log('je suis la !');
-        const likesHeart = document.createElement('div');
-        likesHeart.classList.add('likesHeart');
+    const totalLikes = document.createElement("p");
+    totalLikes.classList.add("totalLikesAndPriceCss");
+    totalLikes.textContent = "0";
 
-        
-        const totalLikes = document.createElement('p');
-        totalLikes.classList.add('totalLikesAndPriceCss');
-        totalLikes.textContent = "0";
+    const heart = document.createElement("i");
+    heart.classList.add("fa-solid", "fa-heart");
 
-        const heart = document.createElement('i');
-        heart.classList.add('fa-solid', 'fa-heart');
+    const pricePerDay = document.createElement("div");
+    pricePerDay.classList.add("pricePerDay");
+    const price = document.createElement("p");
+    price.textContent = photographer.price.toString() + "€" + " / jour";
 
-        const pricePerDay = document.createElement('div');
-        pricePerDay.classList.add('pricePerDay');
-        const price = document.createElement('p');
-        price.textContent = photographer.price.toString() + '€' + ' / jour';
+    likesHeart.appendChild(totalLikes);
+    likesHeart.appendChild(heart);
+    pricePerDay.appendChild(price);
+    totalLikesPriceContainer.appendChild(likesHeart);
+    totalLikesPriceContainer.appendChild(pricePerDay);
+    wrapperContainer.appendChild(totalLikesPriceContainer);
+    fixedContainer.appendChild(wrapperContainer);
 
-        likesHeart.appendChild(totalLikes);
-        likesHeart.appendChild(heart);
-        pricePerDay.appendChild(price);
-        totalLikesPriceContainer.appendChild(likesHeart);
-        totalLikesPriceContainer.appendChild(pricePerDay);
-        wrapperContainer.appendChild(totalLikesPriceContainer);
-        fixedContainer.appendChild(wrapperContainer);
+    return fixedContainer;
+  }
 
-        return fixedContainer;
-    }
-    
-    
-    /**
-     * 
-     * @param {Medias} medias 
-     */
+  /**
+   *
+   * @param {Medias} medias
+   */
 
-    function updateTotalLikes(medias) {
-        const totalLikes = document.querySelector('.totalLikesPriceContainer .totalLikesAndPriceCss');
-        totalLikes.textContent = ""+medias.reduce((total, media) => total + (+media.likes), 0);
+  function updateTotalLikes(medias) {
+    const totalLikes = document.querySelector(
+      ".totalLikesPriceContainer .totalLikesAndPriceCss"
+    );
+    totalLikes.textContent =
+      "" + medias.reduce((total, media) => total + +media.likes, 0);
+  }
 
-    }
+  function createCaroussel(medias) {
+    const lightBoxes = document.querySelectorAll(".modal-click-away .lightbox");
+    lightBoxes.forEach((lb) => lb.parentElement.remove());
+    const lightbox = Lightbox.create();
+    const cards = document.querySelector(".cards");
+    let likedArray = JSON.parse(localStorage.getItem("Liked")) || [];
+    medias.forEach((media, index) => {
+      const card = document.createElement("div");
+      card.classList.add("card");
 
-    
-    
+      let element = undefined;
+      if (!media.video) {
+        element = document.createElement("img");
+        element.setAttribute(
+          "src",
+          `assets/images/media/${name}/${media.image}`
+        );
+        element.setAttribute("alt", "image de " + name);
+      } else {
+        element = document.createElement("video");
+        element.setAttribute(
+          "src",
+          `assets/images/media/${name}/${media.video}`
+        );
+        element.setAttribute("alt", "video de " + name);
+        element.setAttribute("controls", "true");
+      }
 
-    function createCaroussel(medias) {
-        const lightBoxes = document.querySelectorAll('.modal-click-away .lightbox');
-        lightBoxes.forEach(lb => lb.parentElement.remove());
-      const lightbox = Lightbox.create(); 
-      const cards = document.querySelector('.cards');
-      medias.forEach((media, index) => {
-        
-        if (!media.video) {
-            const card = document.createElement('div');
-            card.classList.add('card')
+      element.onclick = () => {
+        Lightbox.open(lightbox, medias, name, index);
+      };
 
-            const img = document.createElement('img');
-            img.setAttribute('src', `assets/images/media/${name}/${media.image}`)
-            img.setAttribute('alt', "image de " + name);
-            img.onclick = () => {
-                Lightbox.open(lightbox, medias, name, index);
-            }
-            const infoCard = document.createElement('div')
-            infoCard.classList.add('infoCard')
+      const infoCard = document.createElement("div");
+      infoCard.classList.add("infoCard");
 
-            const title = document.createElement('div');
-            title.textContent = media.title;
+      const title = document.createElement("div");
+      title.textContent = media.title;
 
-            const numberLikesContainer = document.createElement('div');
-            numberLikesContainer.classList.add('numberLikesContainer');
-            
-            
-            const heart = document.createElement('i');
-            heart.classList.add('fa-solid', 'fa-heart');
+      const numberLikesContainer = document.createElement("div");
+      numberLikesContainer.classList.add("numberLikesContainer");
 
-            const numberLikes = document.createElement('span');
-            numberLikes.textContent = media.likes.toString();
-            numberLikesContainer.onclick = () => {
-                const likedMedia = JSON.stringify(media.title);
-                numberLikesContainer.classList.toggle('clicked');
-                let likedArray = JSON.parse(localStorage.getItem('Liked')) || [];
-                if (!likedArray.some(item => JSON.stringify(item) === likedMedia)) {
-                    likedArray.push(media.title);
-                    localStorage.setItem('Liked', JSON.stringify(likedArray));
-                    media.likes++;
-                    
-                    numberLikes.textContent = media.likes.toString();
-                    updateTotalLikes(medias);
-                }
-                else {
-                    likedArray = likedArray.filter(item => JSON.stringify(item) !== likedMedia);
-                    localStorage.setItem('Liked', JSON.stringify(likedArray));
-                    media.likes--;
-                    numberLikes.textContent = media.likes.toString();
-                    updateTotalLikes(medias);
-                }
-            }
-            
-            numberLikesContainer.appendChild(numberLikes);
-            numberLikesContainer.appendChild(heart);
-            infoCard.appendChild(title);
-            infoCard.appendChild(numberLikesContainer);
-            card.appendChild(img);
-            card.appendChild(infoCard);
-            cards.appendChild(card);
-        } 
-        else {
-            const card = document.createElement('div');
-            card.classList.add('card');
-
-            const infoCard = document.createElement('div')
-            infoCard.classList.add('infoCard')
-
-            const video = document.createElement('video');
-            video.setAttribute('src', `assets/images/media/${name}/${media.video}`)
-            video.setAttribute('alt', "video de " + name);
-            video.setAttribute('controls', 'true');
-            video.onclick = () => {
-                Lightbox.open(lightbox, medias, name, index);
-            }
-
-            const title = document.createElement('div');
-            title.textContent = media.title;
-
-            const numberLikesContainer = document.createElement('div');
-            numberLikesContainer.classList.add('numberLikesContainer');
-
-           
-            
-            const heart = document.createElement('i');
-            heart.classList.add('fa', 'fa-heart');
-
-            const numberLikes = document.createElement('span');
-            numberLikes.textContent = media.likes.toString();
-            numberLikesContainer.onclick = () => {
-                numberLikesContainer.classList.toggle('clicked');
-                const likedMedia = JSON.stringify(media.title);
-                let likedArray = JSON.parse(localStorage.getItem('Liked')) || [];
-                if (!likedArray.some(item => JSON.stringify(item) === likedMedia)) {
-                    likedArray.push(media.title);
-                    localStorage.setItem('Liked', JSON.stringify(likedArray));
-                 media.likes++;
-                 numberLikes.textContent = media.likes.toString();
-                 updateTotalLikes(medias);
-            }
-            else {
-                likedArray = likedArray.filter(item => JSON.stringify(item) !== likedMedia);
-                localStorage.setItem('Liked', JSON.stringify(likedArray));
-                media.likes--;
-                numberLikes.textContent = media.likes.toString();
-            updateTotalLikes(medias);
-            }
-
+      const likedMedia = "" + media.id;
+      const onClickLikes = (checked) => {
+        if (checked) {
+          likedArray.push("" + media.id);
+          media.likes++;
+        } else {
+          likedArray = likedArray.filter((item) => "" + item !== likedMedia);
+          media.likes--;
         }
-            
-            numberLikesContainer.appendChild(numberLikes);
-            numberLikesContainer.appendChild(heart);
-            infoCard.appendChild(title);
-            infoCard.appendChild(numberLikesContainer);
-            card.appendChild(video);
-            card.appendChild(infoCard);
-            cards.appendChild(card);
-            }  
-        })
+
+        localStorage.setItem("Liked", JSON.stringify(likedArray));
+        numberLikes.textContent = "" + media.likes;
         updateTotalLikes(medias);
-      return cards
-    }
-    return {createPhotographerBanner, createCard, createCaroussel, updateTotalLikes, createTotalLikes, createSelectionLightBox};
-}
+      };
+
+      const heart = createHeart(
+        likedArray.some((item) => "" + item === likedMedia),
+        onClickLikes
+      );
+
+      const numberLikes = document.createElement("span");
+      numberLikes.textContent = media.likes.toString();
+
+      numberLikesContainer.appendChild(numberLikes);
+      numberLikesContainer.appendChild(heart);
+      infoCard.appendChild(title);
+      infoCard.appendChild(numberLikesContainer);
+      card.appendChild(element);
+      card.appendChild(infoCard);
+      cards.appendChild(card);
+    });
+    updateTotalLikes(medias);
+    return cards;
+  }
+  return {
+    createPhotographerBanner,
+    createCard,
+    createCaroussel,
+    updateTotalLikes,
+    createTotalLikes,
+    createSelectionLightBox,
+  };
+};
 
 /**
- * 
+ *
  * @returns {HTMLSelectElement}
  */
-function getDropdown(){
-
-    return /** @type {HTMLSelectElement} */ (document.getElementById('options'));
+function getDropdown() {
+  return /** @type {HTMLSelectElement} */ (document.getElementById("options"));
 }
 export function changeOption(medias, onSort) {
-    const selector =  getDropdown(); 
-    const onChange = () =>  {
-        switch (selector.value){
-            case "Popularité": options.setPopularity();
-                break
-            case "Titre": options.setTitle();
-                break
-            case "Date": options.setDate();
-                break
-        } 
+  const selector = getDropdown();
+  const onChange = () => {
+    switch (selector.value) {
+      case "Popularité":
+        options.setPopularity();
+        break;
+      case "Titre":
+        options.setTitle();
+        break;
+      case "Date":
+        options.setDate();
+        break;
     }
-    const options = Options(medias, onSort);
-    selector.onchange = onChange;
+  };
+  const options = Options(medias, onSort);
+  selector.onchange = onChange;
 }
+
+export default photographerTemplate;
