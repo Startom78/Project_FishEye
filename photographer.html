@@ -10,6 +10,7 @@
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
     <script src="/scripts/pages/photographer.js" type="module"></script>
+    <script src="/scripts/components/formularContact/formularContact.js" type="module"> </script>
     <link rel="stylesheet" href="./assets/fontawesome.min.css">
     <link rel="stylesheet" href="./assets/solid.min.css">
     <title>Fisheye - photographe </title>
@@ -26,12 +27,12 @@
           <button class="contact_button" id="contact_opener">Contactez-moi</button>
         </div>
         <div class="menuSelection"> 
-          <p class="menuText"> Trier par :</p>
-          <select id="options" name="option" class="select">
+          <!-- <p class="menuText"> Trier par :</p>
+           <select id="options" name="option" class="select">
            <option value = "Popularité"  selected class="option popularity"> Popularité  </option> 
             <option value = "Date" class="option date" > Date  </option>
             <option value = "Titre" class="option title"> Titre </option>
-          </select>
+          </select> -->
 
           </div>
 
@@ -42,15 +43,15 @@
       </main>
     </div>
     <template id="template_contact">
-      <form>
+      <form class="formData">
         <div>
-          <label> Prénom </label>
+          <label id="firstName"> Prénom </label>
           <input />
-          <label> Nom </label>
+          <label id="lastName"> Nom </label>
           <input />
-          <label> Email </label>
+          <label id="email"> Email </label>
           <input />
-          <label> Votre message </label>
+          <label id="msg"> Votre message </label>
           <input class="message" />
         </div>
         <button class="contact_button">Envoyer</button>

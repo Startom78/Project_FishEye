@@ -112,7 +112,7 @@ export const photographerTemplate = (photographer, medias) => {
 
     const totalLikesPriceContainer = document.createElement("div");
     totalLikesPriceContainer.classList.add("totalLikesPriceContainer");
-    console.log("je suis la !");
+
     const likesHeart = document.createElement("div");
     likesHeart.classList.add("likesHeart");
 
@@ -242,20 +242,21 @@ export const photographerTemplate = (photographer, medias) => {
  * @returns {HTMLSelectElement}
  */
 function getDropdown() {
-  return /** @type {HTMLSelectElement} */ (document.getElementById("options"));
+  return /** @type {HTMLSelectElement} */ (document.querySelector(".option"));
 }
 export function changeOption(medias, onSort) {
   const selector = getDropdown();
+  console.log(selector);
   const onChange = () => {
     switch (selector.value) {
       case "Popularité":
         options.setPopularity();
         break;
-      case "Titre":
-        options.setTitle();
-        break;
       case "Date":
         options.setDate();
+        break;
+      case "Titre":
+        options.setTitle();
         break;
     }
   };

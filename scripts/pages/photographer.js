@@ -28,6 +28,7 @@ window.onload = () => {
       const media = data.media.filter((m) => "" + m.photographerId === "" + id);
       const photographerManager = photographerTemplate(ptg, media);
       displayBanner(photographerManager, ptg);
+      displayOptions();
       displayCaroussel(photographerManager, ptg, media);
       const sortMedias = (medias) => {
         displayCaroussel(photographerManager, ptg, medias);
@@ -64,4 +65,46 @@ function displayCaroussel(photographerManager, photographer, medias) {
   cards.innerHTML = "";
   const carousselContent = photographerManager.createCaroussel(medias);
   caroussel.appendChild(carousselContent);
+}
+
+function displayOptions() {
+  const menu = document.querySelector(".menuSelection");
+  console.log(menu);
+
+  const selectionText = document.createElement("p");
+  selectionText.classList.add("selectionText");
+  selectionText.innerHTML = "Trier par : ";
+
+  const dropDown = document.createElement("div");
+  dropDown.classList.add("dropDown");
+
+  const popularity = document.createElement("p");
+  popularity.classList.add("option");
+  popularity.textContent = "Popularité";
+  console.log(popularity);
+
+  const date = document.createElement("p");
+  date.classList.add("option", "hidden");
+  date.textContent = "Date";
+
+  const title = document.createElement("p");
+  title.classList.add("option", "hidden");
+  title.textContent = "Titre";
+
+  const upArrow = document.createElement("i");
+  upArrow.innerHTML = `<i class="fa-solid fa-angle-up"></i>`;
+  upArrow.onclick = () => {
+    date.classList.toggle("hidden");
+    title.classList.toggle("hidden");
+    popularity.classList.add("whiteBorder");
+    date.classList.add("whiteBorder");
+  };
+
+  popularity.appendChild(upArrow);
+  dropDown.appendChild(popularity);
+  dropDown.appendChild(date);
+  dropDown.appendChild(title);
+  menu.appendChild(selectionText);
+  menu.appendChild(dropDown);
+  return menu;
 }

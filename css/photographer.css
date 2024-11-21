@@ -128,30 +128,49 @@ h1 {
     font-size: 64px;
 }
 
-.menuSelection{
+ .menuSelection{
+    
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-weight: bold;
     min-height: 40px;
     margin : 20px 0 20px 0;
-    & .select{
-        margin-left: 25px;
-        min-width: 150px;
-        min-height: 40px;
-        border-radius: 5px;
+
+    & .selectionText {
         font-weight: bold;
+    }
+
+    & .dropDown{
+        
+        display: flex;
+        flex-direction: column;
+        border-radius: 5px;
+        margin-left: 20px;
+        padding-left: 10px;
         background-color: #901C1C;
         color: white;
-        cursor: pointer;
+        font-size: 18px;
 
         & .option{
-            font-weight: bold;
+            display: flex;
+            align-items: center;
+            min-height: 50px;
             cursor: pointer;
-            border: 1px solid white;
+        }
+        & .whiteBorder{
+            border-bottom: 1px solid white;
+        }
+    
+        & .hidden {
+            display: none;
+        }
+        & .fa-angle-up{
+            cursor: pointer;
+            margin : 0 8px 0 15px;
         }
     }
-}
+
+} 
 
 .cards {
     display: grid;
