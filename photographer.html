@@ -43,18 +43,26 @@
       </main>
     </div>
     <template id="template_contact">
-      <form class="formData">
+      <form class="formContact">
         <div>
-          <label id="firstName"> Prénom </label>
-          <input />
-          <label id="lastName"> Nom </label>
-          <input />
-          <label id="email"> Email </label>
-          <input />
-          <label id="msg"> Votre message </label>
-          <input class="message" />
+          <div class="formData">
+            <label for="firstName"> Prénom </label>
+            <input id="firstName"/>
+          </div>
+          <div class="formData">
+            <label for="lastName"> Nom </label>
+            <input id="lastName"/>
+          </div>
+          <div class="formData">
+            <label for="email"> Email </label>
+            <input id="email"/>
+          </div>
+          <div class="formData">
+            <label for="msg"> Votre message </label>
+            <input id="msg" class="message" />
+          </div>
         </div>
-        <button class="contact_button">Envoyer</button>
+        <button class="contact_button" type="submit">Envoyer</button>
       </form>
     </template>
   </body>

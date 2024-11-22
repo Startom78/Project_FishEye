@@ -1,4 +1,5 @@
 //Mettre le code JavaScript lié à la page photographer.html
+import { initFormValidation } from "../components/formularContact/formularContact.js";
 import Modal from "../components/modal.js";
 import {
   changeOption,
@@ -12,6 +13,7 @@ function createContactModal() {
       template.content.cloneNode(true),
       document.querySelector("#contact_opener")
     );
+    initFormValidation();
   }
 }
 window.onload = () => {

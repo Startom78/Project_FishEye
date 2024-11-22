@@ -13,6 +13,7 @@ function validateError(element, errorMessage) {
 }
 
 function validateInputEmpty(element) {
+  console.log(element);
   // Cette fonction vérifie si le champ rentré n'est pas vide, sinon il affiche un message d'erreur
   if (element.value.length < 1) {
     validateError(element, "Champ obligatoire");
@@ -56,16 +57,15 @@ function validateField(validator) {
   return validator.validators.find((validate) => validate(validator.element));
 }
 
-const initFormValidation = () => {
+export const initFormValidation = () => {
   // Je récupère ici les éléments de mon formulaire
   //const modalBg = document.querySelector(".bground");
   //const modalWindow =  modalBg.querySelector(".content");
-  const submitButton = document.querySelector(".contact_button");
-
-  const first_name = document.getElementById("#first");
-  const last_name = document.getElementById("#last");
-  const email = document.getElementById("#email");
-  const message = document.getElementById("#message");
+  const form = document.querySelector(".formContact");
+  const first_name = document.getElementById("firstName");
+  const last_name = document.getElementById("lastName");
+  const email = document.getElementById("email");
+  const message = document.getElementById("msg");
 
   const validators = [
     // J'indique l'élémént à prendre en compte pour valider chaque partie du formulaire
@@ -106,12 +106,11 @@ const initFormValidation = () => {
     );
   });
 
-  submitButton.addEventListener("submit", (event) => {
+  form.addEventListener("submit", (event) => {
+    console.log("je suis la");
     event.preventDefault();
-    if (
-      validators.filter((validator) => validateField(validator)).length === 0
-    ) {
-      const body = document.querySelector(".formData");
+    if (!validators.find((validator) => validateField(validator))) {
+      const body = document.querySelector(".formContact");
       body.innerHTML =
         "<div> Merci pour votre message ! le photographe vous répondra inshAllah </div>";
     }
