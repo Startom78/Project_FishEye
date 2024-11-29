@@ -1,6 +1,5 @@
 import Lightbox from "../components/lightbox/lightbox.js";
 import createHeart from "../components/likes/likes.js";
-import Options from "../components/options/options.js";
 
 /**
  * @function photographerTemplate
@@ -236,32 +235,5 @@ export const photographerTemplate = (photographer, medias) => {
     createSelectionLightBox,
   };
 };
-
-/**
- *
- * @returns {HTMLSelectElement}
- */
-function getDropdown() {
-  return /** @type {HTMLSelectElement} */ (document.querySelector(".option"));
-}
-export function changeOption(medias, onSort) {
-  const selector = getDropdown();
-  console.log(selector);
-  const onChange = () => {
-    switch (selector.value) {
-      case "Popularité":
-        options.setPopularity();
-        break;
-      case "Date":
-        options.setDate();
-        break;
-      case "Titre":
-        options.setTitle();
-        break;
-    }
-  };
-  const options = Options(medias, onSort);
-  selector.onchange = onChange;
-}
 
 export default photographerTemplate;

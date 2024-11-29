@@ -29,6 +29,7 @@ interface Media {
     title: string
 };
 type Medias = Media[];
+type Options = Option[];
 
 type PhotographerReturnType = {
     updateTotalLikes: (medias: Medias) => void

@@ -152,8 +152,8 @@ a {
 
 .formData[data-error]::after {
   content: attr(data-error);
-  font-size: 0.75rem;
-  color: #e54858;
+  font-size: 20px;
+  color: red;
   display: block;
   margin-top: 7px;
   margin-bottom: 7px;
@@ -166,5 +166,5 @@ a {
   opacity: 1;
 }
 .formData[data-error-visible="true"] .text-control {
-  border: 2px solid #e54858;
+  border: 10px solid #e54858;
 }

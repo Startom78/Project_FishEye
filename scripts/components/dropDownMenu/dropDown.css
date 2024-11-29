@@ -1,0 +1,71 @@
+.dropDown-container{
+    position: relative;
+    height: 40px;
+}
+
+.dropDown-click-away{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #0002;
+    z-index: 999;
+    &.hidden{
+        display: none;
+    }
+}
+
+.dropDown{
+    background-color: #901C1C;
+    position: absolute;
+    height: 40px;
+    border-radius: 5px;
+    overflow-y: hidden;
+    padding: 0 10px;
+    z-index: 1000;
+
+    &.open {
+        height: auto;
+    }
+
+    &.open .option{
+        border-bottom: 1px solid white;
+        
+    }
+
+    & .option:nth-last-child(-n+1){
+        border-bottom: unset;
+    }
+
+    & .option{
+        display: flex;
+        align-items: center;
+        height: 40px;
+        padding-left: 10px;
+        padding-right: 42px;
+        color: white;
+        font-size: 24px;
+        font-weight: 400;
+        cursor: pointer;
+        
+    }
+
+    & .chevron{
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        width: 32px;
+        height: 32px;
+        transform: rotate(0deg);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    &.open .chevron{
+        transform: rotate(180deg);
+    }
+}
