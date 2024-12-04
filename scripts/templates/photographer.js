@@ -168,7 +168,7 @@ export const photographerTemplate = (photographer, medias) => {
           "src",
           `assets/images/media/${name}/${media.image}`
         );
-        element.setAttribute("alt", "image de " + name);
+        element.setAttribute("alt", media.title);
       } else {
         element = document.createElement("video");
         element.setAttribute(

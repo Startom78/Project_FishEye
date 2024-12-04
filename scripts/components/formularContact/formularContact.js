@@ -13,7 +13,6 @@ function validateError(element, errorMessage) {
 }
 
 function validateInputEmpty(element) {
-  console.log(element);
   // Cette fonction vérifie si le champ rentré n'est pas vide, sinon il affiche un message d'erreur
   if (element.value.length < 1) {
     validateError(element, "Champ obligatoire");
@@ -59,8 +58,7 @@ function validateField(validator) {
 
 export const initFormValidation = () => {
   // Je récupère ici les éléments de mon formulaire
-  //const modalBg = document.querySelector(".bground");
-  //const modalWindow =  modalBg.querySelector(".content");
+
   const form = document.querySelector(".formContact");
   const first_name = document.getElementById("firstName");
   const last_name = document.getElementById("lastName");
@@ -107,12 +105,17 @@ export const initFormValidation = () => {
   });
 
   form.addEventListener("submit", (event) => {
-    console.log("je suis la");
     event.preventDefault();
     if (!validators.find((validator) => validateField(validator))) {
       const body = document.querySelector(".formContact");
       body.innerHTML =
         "<div> Merci pour votre message ! le photographe vous répondra inshAllah </div>";
+      console.log(
+        "Prénom : " + first_name.value + "\n",
+        "Nom : " + last_name.value + "\n",
+        "Email : " + email.value + "\n",
+        "Message : " + message.value
+      );
     }
   });
 };
