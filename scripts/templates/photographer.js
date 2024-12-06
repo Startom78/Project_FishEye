@@ -1,5 +1,6 @@
 import Lightbox from "../components/lightbox/lightbox.js";
 import createHeart from "../components/likes/likes.js";
+import Modal from "../components/modal.js";
 
 /**
  * @function photographerTemplate
@@ -38,6 +39,7 @@ export const photographerTemplate = (photographer, medias) => {
     const link = document.createElement("a");
     link.setAttribute("href", photographerUrl);
     link.classList.add("card-link");
+    link.tabIndex = 3;
 
     const imgContainer = document.createElement("div");
     imgContainer.classList.add("avatar");
@@ -118,6 +120,7 @@ export const photographerTemplate = (photographer, medias) => {
     const totalLikes = document.createElement("p");
     totalLikes.classList.add("totalLikesAndPriceCss");
     totalLikes.textContent = "0";
+    totalLikes.tabIndex = 9999;
 
     const heart = document.createElement("i");
     heart.classList.add("fa-solid", "fa-heart");
@@ -126,6 +129,7 @@ export const photographerTemplate = (photographer, medias) => {
     pricePerDay.classList.add("pricePerDay");
     const price = document.createElement("p");
     price.textContent = photographer.price.toString() + "€" + " / jour";
+    pricePerDay.tabIndex = 9999;
 
     likesHeart.appendChild(totalLikes);
     likesHeart.appendChild(heart);
@@ -169,6 +173,13 @@ export const photographerTemplate = (photographer, medias) => {
           `assets/images/media/${name}/${media.image}`
         );
         element.setAttribute("alt", media.title);
+        element.tabIndex = 0;
+        element.addEventListener("keydown", (event) => {
+          if (event.key === "Enter") {
+            Modal.open(lightbox);
+            Lightbox.openLightbox(lightbox, medias, name, index);
+          }
+        });
       } else {
         element = document.createElement("video");
         element.setAttribute(
@@ -177,6 +188,7 @@ export const photographerTemplate = (photographer, medias) => {
         );
         element.setAttribute("alt", "video de " + name);
         element.setAttribute("controls", "true");
+        element.tabIndex = 0;
       }
 
       element.onclick = () => {
@@ -189,11 +201,14 @@ export const photographerTemplate = (photographer, medias) => {
       const title = document.createElement("div");
       title.textContent = media.title;
 
-      const numberLikesContainer = document.createElement("div");
+      const numberLikesContainer = document.createElement("button");
       numberLikesContainer.classList.add("numberLikesContainer");
+      numberLikesContainer.tabIndex = 0;
 
       const likedMedia = "" + media.id;
-      const onClickLikes = (checked) => {
+      const onClickLikes = (heart) => {
+        heart.classList.toggle("checked");
+        const checked = heart.classList.contains("checked");
         if (checked) {
           likedArray.push("" + media.id);
           media.likes++;
@@ -207,10 +222,24 @@ export const photographerTemplate = (photographer, medias) => {
         updateTotalLikes(medias);
       };
 
+      /*document.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          onClickLikes();
+
+          localStorage.setItem("Liked", JSON.stringify(likedArray));
+          numberLikes.textContent = "" + media.likes;
+          updateTotalLikes(medias);
+        }
+      }); */
+
       const heart = createHeart(
         likedArray.some((item) => "" + item === likedMedia),
-        onClickLikes
+        null
       );
+
+      numberLikesContainer.onclick = () => {
+        onClickLikes(heart);
+      };
 
       const numberLikes = document.createElement("span");
       numberLikes.textContent = media.likes.toString();

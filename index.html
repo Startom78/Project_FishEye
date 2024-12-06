@@ -5,19 +5,22 @@
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/fontawesome.min.css">
+    
     <title>Fisheye</title>
     <script src="scripts/pages/index.js" type="module"></script>
   </head>
   <body>
     <div class="wrapper">
       <header>
-        <a href="index.html">
+        <a tabindex="1" href="index.html">
           <img src="assets/images/logo.png" class="logo" alt="fisheye logo"/>
+          <span class="sr-only">Retour à la page d'accueil</span>
         </a>
-          <h1>Nos photographes</h1>
+        <h1 tabindex="2">Nos photographes</h1>
       </header>
       <main id="main">
-          <div class="photographer_section"></div>
+        <div class="photographer_section"></div>
       </main>
     </div>
   </body>

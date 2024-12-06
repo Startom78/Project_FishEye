@@ -68,10 +68,20 @@ const Lightbox = {
       index = (index - 1 + medias.length) % medias.length;
       Lightbox.openMedia(lightbox, medias[index], name);
     };
+
     right.onclick = () => {
       index = (index + 1 + medias.length) % medias.length;
       Lightbox.openMedia(lightbox, medias[index], name);
     };
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        index = (index - 1 + medias.length) % medias.length;
+        Lightbox.openMedia(lightbox, medias[index], name);
+      } else if (event.key === "ArrowRight") {
+        index = (index + 1 + medias.length) % medias.length;
+        Lightbox.openMedia(lightbox, medias[index], name);
+      }
+    });
   },
 
   openMedia: (lightbox, media, name) => {
