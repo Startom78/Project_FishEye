@@ -1,6 +1,9 @@
 .dropDown-container{
     position: relative;
     height: 40px;
+    border-radius: 5px;
+    width: auto;
+    background-color: #901C1C; 
 }
 
 .dropDown-click-away{
@@ -17,7 +20,6 @@
 }
 
 .dropDown{
-    background-color: #901C1C;
     position: absolute;
     height: 40px;
     border-radius: 5px;
@@ -27,6 +29,8 @@
 
     &.open {
         height: auto;
+        background-color: #901C1C; 
+
     }
 
     &.open .option{
@@ -63,6 +67,7 @@
         height: 32px;
         transform: rotate(0deg);
         transition: transform 0.3s ease-in-out;
+        cursor: pointer;
     }
 
     &.open .chevron{

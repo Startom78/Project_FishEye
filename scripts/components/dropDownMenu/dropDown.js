@@ -1,13 +1,18 @@
-const dropDown = (options, onChange, tabIndex = 0) => {
+const dropDown = (options, onChange, tabIndex = undefined) => {
   const div = document.createElement("div");
   div.classList.add("dropDown-container");
+  div.tabIndex = tabIndex && tabIndex > -1 ? tabIndex : 0;
 
   const clickAway = document.createElement("div");
   clickAway.classList.add("dropDown-click-away", "hidden");
 
   const dropContainer = document.createElement("div");
   dropContainer.classList.add("dropDown");
-  dropContainer.tabIndex = tabIndex;
+  const resizer = new ResizeObserver(() => {
+    const box = dropContainer.getBoundingClientRect();
+    div.style.width = box.width + "px";
+  });
+  resizer.observe(dropContainer);
 
   const chevron = document.createElement("i");
   chevron.classList.add("fa-solid", "fa-angle-up", "chevron");
@@ -26,14 +31,37 @@ const dropDown = (options, onChange, tabIndex = 0) => {
     clickAway.classList.add("hidden");
     onOpenClose();
   };
+
+  const open = () => {
+    dropContainer.classList.add("open");
+    clickAway.classList.remove("hidden");
+    onOpenClose();
+  };
+
+  const toggle = () => {
+    dropContainer.classList.toggle("open");
+    clickAway.classList.toggle("hidden");
+    onOpenClose();
+  };
+
   const onOpenClose = () => {
     const isOpen = dropContainer.classList.contains("open");
     const items = dropContainer.querySelectorAll(".option");
     items.forEach((item) => {
-      item.tabIndex = isOpen ? tabIndex : -1;
+      item.tabIndex = isOpen ? 0 : -1;
     });
   };
-  clickAway.onclick = chevron.onclick = close;
+
+  clickAway.onclick = close;
+  chevron.onclick = toggle;
+
+  dropContainer.addEventListener("blur", () => {
+    const requireClose = !clickAway.classList.contains("hidden");
+    close();
+    if (requireClose) {
+      chevron.focus();
+    }
+  });
 
   dropContainer.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
@@ -49,37 +77,69 @@ const dropDown = (options, onChange, tabIndex = 0) => {
     optionElement.textContent = option;
     optionElement.classList.add("option");
     dropContainer.appendChild(optionElement);
+    optionElement.tabIndex = -1;
 
-    optionElement.onclick = (event) => {
+    const listenKeys = (event) => {
+      if (!dropContainer.classList.contains("open")) return;
+      const dropdownItems = Array.from(
+        dropContainer.querySelectorAll(".option")
+      );
+
+      const current = dropdownItems.indexOf(optionElement);
+      const next =
+        (event.key === "Tab" && !event.shiftKey) || event.key === "ArrowDown";
+      const prev =
+        (event.key === "Tab" && event.shiftKey) || event.key === "ArrowUp";
+      if (next) {
+        if (current === dropdownItems.length - 1) {
+          close();
+          div.focus();
+          return;
+        }
+        // Empêcher le comportement par défaut
+        event.preventDefault();
+        event.stopPropagation();
+
+        // Aller à l'élément suivant ou au premier
+        const nextIndex = (current + 1) % dropdownItems.length;
+        dropdownItems[nextIndex].focus();
+      } else if (prev) {
+        if (current == 0) {
+          close();
+          div.focus();
+          return;
+        }
+        // Empêcher le comportement par défaut
+        event.preventDefault();
+        event.stopPropagation();
+
+        // Aller à l'élément précédent ou au dernier
+        const prevIndex =
+          (current - 1 + dropdownItems.length) % dropdownItems.length;
+        dropdownItems[prevIndex].focus();
+      } else if (event.key === "Enter") {
+        activate();
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    };
+
+    const activate = () => {
       optionElement.remove();
       chevron.insertAdjacentElement("afterend", optionElement);
       onChange?.(option, last === optionElement);
       last = optionElement;
+      optionElement.focus();
+      console.log(option);
+    };
+
+    optionElement.onclick = (event) => {
+      activate();
       event.stopPropagation();
     };
-  });
-  // Sélectionner toutes les options du dropdown
-  const dropdownItems = dropContainer.querySelectorAll(".option");
 
-  // Ajouter un écouteur d'événements à chaque élément
-  dropdownItems.forEach((item, index) => {
-    item.addEventListener("keydown", (event) => {
-      if (!dropContainer.classList.contains("open")) return;
-      if (event.key === "Tab" || event.key === "ArrowDown") {
-        // Empêcher le comportement par défaut
-        event.preventDefault();
-        // Aller à l'élément suivant ou au premier
-        const nextIndex = (index + 1) % dropdownItems.length;
-        dropdownItems[nextIndex].focus();
-      } else if (event.key === "ArrowUp") {
-        // Empêcher le comportement par défaut
-        event.preventDefault();
-        // Aller à l'élément précédent ou au dernier
-        const prevIndex =
-          (index - 1 + dropdownItems.length) % dropdownItems.length;
-        dropdownItems[prevIndex].focus();
-      }
-    });
+    // Ajouter un écouteur d'événements à chaque élément
+    optionElement.addEventListener("keydown", listenKeys);
   });
 
   div.appendChild(clickAway);

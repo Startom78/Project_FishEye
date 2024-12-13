@@ -2,7 +2,8 @@ const Modal = {
   create: (
     /** @type {string} */ pTitle,
     /** @type {any} */ pBody,
-    externalOpenButton = null
+    externalOpenButton = null,
+    tabIndex = -1
   ) => {
     // external window - on click : close
 
@@ -48,11 +49,17 @@ const Modal = {
     if (externalOpenButton) {
       externalOpenButton.onclick = () => Modal.open(clickAway);
     }
+
+    if (tabIndex > 0) {
+      window.tabIndex = tabIndex;
+    }
     return clickAway;
   },
 
   open: (/** @type {HTMLElement} */ modal) => {
     modal.classList.remove("hidden");
+    modal.querySelector(".modal-window").focus();
+    console.log("open");
   },
 
   close: (/** @type {HTMLElement} */ modal) => {

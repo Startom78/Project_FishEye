@@ -63,16 +63,31 @@ const Lightbox = {
   openLightbox: (lightbox, medias, name, index) => {
     Lightbox.openMedia(lightbox, medias[index], name);
     const left = lightbox.querySelector(".leftArrow");
-    const right = lightbox.querySelector(".rightArrow");
+    left.tabIndex = 0;
+
     left.onclick = () => {
       index = (index - 1 + medias.length) % medias.length;
       Lightbox.openMedia(lightbox, medias[index], name);
     };
+    left.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        index = (index - 1 + medias.length) % medias.length;
+        Lightbox.openMedia(lightbox, medias[index], name);
+      }
+    });
 
+    const right = lightbox.querySelector(".rightArrow");
     right.onclick = () => {
       index = (index + 1 + medias.length) % medias.length;
       Lightbox.openMedia(lightbox, medias[index], name);
     };
+    right.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        index = (index + 1 + medias.length) % medias.length;
+        Lightbox.openMedia(lightbox, medias[index], name);
+      }
+    });
+
     document.addEventListener("keydown", (event) => {
       if (event.key === "ArrowLeft") {
         index = (index - 1 + medias.length) % medias.length;

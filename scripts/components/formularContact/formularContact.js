@@ -65,6 +65,14 @@ export const initFormValidation = () => {
   const email = document.getElementById("email");
   const message = document.getElementById("msg");
 
+  const itemsFormular = form.querySelectorAll(".formData input");
+  itemsFormular.forEach((element) => {
+    element.tabIndex = 1001;
+  });
+
+  const button = form.querySelector("#contact-submit");
+  button.tabIndex = 1001;
+
   const validators = [
     // J'indique l'élémént à prendre en compte pour valider chaque partie du formulaire
     {
@@ -119,3 +127,44 @@ export const initFormValidation = () => {
     }
   });
 };
+
+/* button.addEventListener("keydown", (event) => {
+  if (event.key === "enter") {
+    event.preventDefault();
+    if (!validators.find((validator) => validateField(validator))) {
+      const body = document.querySelector(".formContact");
+      body.innerHTML =
+        "<div> Merci pour votre message ! le photographe vous répondra inshAllah </div>";
+      console.log(
+        "Prénom : " + first_name.value + "\n",
+        "Nom : " + last_name.value + "\n",
+        "Email : " + email.value + "\n",
+        "Message : " + message.value
+      );
+    }
+  }
+}); */
+
+// Sélectionner toutes les options du dropdown
+/*const forumlarContactItems = dropContainer.querySelectorAll(".option");
+
+// Ajouter un écouteur d'événements à chaque élément
+dropdownItems.forEach((item, index) => {
+  item.addEventListener("keydown", (event) => {
+    if (!dropContainer.classList.contains("open")) return;
+    if (event.key === "Tab" || event.key === "ArrowDown") {
+      // Empêcher le comportement par défaut
+      event.preventDefault();
+      // Aller à l'élément suivant ou au premier
+      const nextIndex = (index + 1) % dropdownItems.length;
+      dropdownItems[nextIndex].focus();
+    } else if (event.key === "ArrowUp") {
+      // Empêcher le comportement par défaut
+      event.preventDefault();
+      // Aller à l'élément précédent ou au dernier
+      const prevIndex =
+        (index - 1 + dropdownItems.length) % dropdownItems.length;
+      dropdownItems[prevIndex].focus();
+    }
+  });
+}); */

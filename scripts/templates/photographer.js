@@ -80,14 +80,17 @@ export const photographerTemplate = (photographer, medias) => {
     const h1 = document.createElement("h1");
     h1.classList.add("h1Photographer");
     h1.textContent = name;
+    h1.tabIndex = 0;
 
     const cityCountry = document.createElement("div");
     cityCountry.classList.add("cityCountry");
     cityCountry.textContent = `${country}, ${city}`;
+    cityCountry.tabIndex = 0;
 
     const taglineElement = document.createElement("p");
     taglineElement.classList.add("tagline");
     taglineElement.textContent = tagline;
+    taglineElement.tabIndex = 0;
 
     const imgContainer = document.createElement("div");
     imgContainer.classList.add("avatar");
@@ -120,7 +123,7 @@ export const photographerTemplate = (photographer, medias) => {
     const totalLikes = document.createElement("p");
     totalLikes.classList.add("totalLikesAndPriceCss");
     totalLikes.textContent = "0";
-    totalLikes.tabIndex = 9999;
+    totalLikes.tabIndex = 1;
 
     const heart = document.createElement("i");
     heart.classList.add("fa-solid", "fa-heart");
@@ -129,7 +132,7 @@ export const photographerTemplate = (photographer, medias) => {
     pricePerDay.classList.add("pricePerDay");
     const price = document.createElement("p");
     price.textContent = photographer.price.toString() + "€" + " / jour";
-    pricePerDay.tabIndex = 9999;
+    pricePerDay.tabIndex = 1;
 
     likesHeart.appendChild(totalLikes);
     likesHeart.appendChild(heart);

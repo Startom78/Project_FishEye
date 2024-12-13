@@ -15,7 +15,8 @@ function createContactModal() {
     Modal.create(
       "contactez-moi",
       template.content.cloneNode(true),
-      document.querySelector("#contact_opener")
+      document.querySelector("#contact_opener"),
+      1000
     );
     initFormValidation();
   }
