@@ -92,7 +92,6 @@ const dropDown = (options, onChange, tabIndex = undefined) => {
         (event.key === "Tab" && event.shiftKey) || event.key === "ArrowUp";
       if (next) {
         if (current === dropdownItems.length - 1) {
-          close();
           div.focus();
           return;
         }
@@ -105,8 +104,7 @@ const dropDown = (options, onChange, tabIndex = undefined) => {
         dropdownItems[nextIndex].focus();
       } else if (prev) {
         if (current == 0) {
-          close();
-          div.focus();
+          option.focus();
           return;
         }
         // Empêcher le comportement par défaut

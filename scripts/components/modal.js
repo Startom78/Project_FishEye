@@ -1,3 +1,5 @@
+import Lightbox from "./lightbox/lightbox.js";
+
 const Modal = {
   create: (
     /** @type {string} */ pTitle,
@@ -24,7 +26,13 @@ const Modal = {
     const closeButton = document.createElement("div");
     closeButton.classList.add("modal-close-button");
     closeButton.innerHTML = `<i class="fa-solid fa-x"></i>`;
+    closeButton.tabIndex = 1002;
     closeButton.onclick = () => Modal.close(clickAway);
+    closeButton.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        Modal.close(clickAway);
+      }
+    });
     header.appendChild(title);
     header.appendChild(closeButton);
 
@@ -39,9 +47,18 @@ const Modal = {
     // enable listeners to close on click
     clickAway.onclick = () => Modal.close(clickAway);
     window.onclick = (event) => event.stopPropagation();
-    document.addEventListener("keydown", (event) => {
+
+    window.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
-        Modal.close(clickAway);
+        if (!window.querySelector(".lightbox")) {
+          Modal.close(clickAway);
+          console.log("perdu !");
+          const button = document.getElementById("contact_opener");
+          button.focus();
+        } else {
+          Modal.close(clickAway);
+          console.log("gagné !");
+        }
       }
     });
 
@@ -59,7 +76,6 @@ const Modal = {
   open: (/** @type {HTMLElement} */ modal) => {
     modal.classList.remove("hidden");
     modal.querySelector(".modal-window").focus();
-    console.log("open");
   },
 
   close: (/** @type {HTMLElement} */ modal) => {

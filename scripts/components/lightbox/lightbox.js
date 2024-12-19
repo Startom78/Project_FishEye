@@ -6,6 +6,7 @@ const Lightbox = {
     const modal = Modal.create("", body);
     const window = modal.querySelector(".modal-window");
     window.classList.add("lightbox");
+    window.tabIndex = 1000;
 
     return modal;
   },
@@ -28,10 +29,12 @@ const Lightbox = {
     mediaContainer.classList.add("mediaContainer");
     const img = document.createElement("img");
     img.classList.add("hidden", "media");
+    img.tabIndex = 1000;
 
     const video = document.createElement("video");
     video.classList.add("hidden", "media");
     video.setAttribute("controls", "controls");
+    video.tabIndex = 1000;
 
     //img.setAttribute('src', `assets/images/media/${name}/${medias[0].image}`)
     //img.setAttribute('alt', "image de " + name);
@@ -63,7 +66,7 @@ const Lightbox = {
   openLightbox: (lightbox, medias, name, index) => {
     Lightbox.openMedia(lightbox, medias[index], name);
     const left = lightbox.querySelector(".leftArrow");
-    left.tabIndex = 0;
+    left.tabIndex = 1000;
 
     left.onclick = () => {
       index = (index - 1 + medias.length) % medias.length;
@@ -77,6 +80,7 @@ const Lightbox = {
     });
 
     const right = lightbox.querySelector(".rightArrow");
+    right.tabIndex = 1000;
     right.onclick = () => {
       index = (index + 1 + medias.length) % medias.length;
       Lightbox.openMedia(lightbox, medias[index], name);
@@ -95,6 +99,14 @@ const Lightbox = {
       } else if (event.key === "ArrowRight") {
         index = (index + 1 + medias.length) % medias.length;
         Lightbox.openMedia(lightbox, medias[index], name);
+      }
+    });
+
+    const x = lightbox.querySelector(".modal-close-button");
+    x.tabIndex = 1001;
+    x.addEventListener("keydown", (event) => {
+      if (event.key === "Tab") {
+        left.focus();
       }
     });
   },

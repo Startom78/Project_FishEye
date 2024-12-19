@@ -225,16 +225,6 @@ export const photographerTemplate = (photographer, medias) => {
         updateTotalLikes(medias);
       };
 
-      /*document.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
-          onClickLikes();
-
-          localStorage.setItem("Liked", JSON.stringify(likedArray));
-          numberLikes.textContent = "" + media.likes;
-          updateTotalLikes(medias);
-        }
-      }); */
-
       const heart = createHeart(
         likedArray.some((item) => "" + item === likedMedia),
         null
