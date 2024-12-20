@@ -16,6 +16,8 @@
 }
 
 .modal-window {
+    position: static;
+    border: none;
     min-width: 500px;
     background-color: #DB8876;
     padding: 20px;
@@ -36,6 +38,12 @@
 .modal-window .modal-close-button {
     cursor: pointer;
     color: #901C1C;
+}
+
+.modal-window .modal-container{
+    height: auto;
+    max-height: calc(100dvh - 15rem);
+    overflow-y: auto;
 }
 
 

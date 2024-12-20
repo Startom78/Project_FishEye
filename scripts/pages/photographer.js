@@ -16,7 +16,14 @@ function createContactModal() {
       "contactez-moi",
       template.content.cloneNode(true),
       document.querySelector("#contact_opener"),
-      1000
+      1000,
+      () => {
+        document.querySelector(".wrapper").setAttribute("disabled", "true");
+      },
+      () => {
+        document.querySelector(".wrapper").setAttribute("disabled", "false");
+        document.querySelector("#contact_opener").focus();
+      }
     );
     initFormValidation();
   }
@@ -90,9 +97,9 @@ function displayBanner(photographerManager, photographer) {
     document.querySelector("#contact_opener")
   );
   Banner.appendChild(userBannerDOM.img);
-  const main = document.getElementById("main");
+  const overlay = document.getElementById("overlay-likes");
   const totalLikesContainer = photographerManager.createTotalLikes();
-  main.appendChild(totalLikesContainer);
+  overlay.appendChild(totalLikesContainer);
 }
 
 function displayCaroussel(photographerManager, photographer, medias) {

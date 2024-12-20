@@ -153,10 +153,9 @@ a {
 .formData[data-error]::after {
   content: attr(data-error);
   font-size: 20px;
-  color: red;
+  color: #900000;
   display: block;
-  margin-top: 7px;
-  margin-bottom: 7px;
+  margin-top: 12px;
   text-align: right;
   line-height: 0.3;
   opacity: 1;

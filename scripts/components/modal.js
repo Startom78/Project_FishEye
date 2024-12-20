@@ -1,20 +1,23 @@
-import Lightbox from "./lightbox/lightbox.js";
-
 const Modal = {
   create: (
     /** @type {string} */ pTitle,
     /** @type {any} */ pBody,
     externalOpenButton = null,
-    tabIndex = -1
+    tabIndex = -1,
+    onOpen = () => {},
+    onClose = () => {}
   ) => {
     // external window - on click : close
 
     const clickAway = document.createElement("div");
-    clickAway.classList.add("modal-click-away");
+    clickAway.classList.add("modal-click-away", "hidden");
+    clickAway.onOpen = onOpen;
+    clickAway.onClose = onClose;
 
     // internal window
-    const window = document.createElement("div");
+    const window = document.createElement("dialog");
     window.classList.add("modal-window");
+    window.setAttribute("role", "dialog");
     clickAway.appendChild(window);
 
     // window header
@@ -27,38 +30,35 @@ const Modal = {
     closeButton.classList.add("modal-close-button");
     closeButton.innerHTML = `<i class="fa-solid fa-x"></i>`;
     closeButton.tabIndex = 1002;
+
     closeButton.onclick = () => Modal.close(clickAway);
     closeButton.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
+        event.stopPropagation();
+        event.preventDefault();
         Modal.close(clickAway);
       }
     });
     header.appendChild(title);
     header.appendChild(closeButton);
 
+    const container = document.createElement("div");
+    container.classList.add("modal-container");
+    window.appendChild(container);
+
     // attach the body
-    window.appendChild(pBody);
+    container.appendChild(pBody);
 
     // attach modal to the body
     document.body.appendChild(clickAway);
 
-    // by default : close the modal
-    Modal.close(clickAway);
     // enable listeners to close on click
     clickAway.onclick = () => Modal.close(clickAway);
     window.onclick = (event) => event.stopPropagation();
 
     window.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
-        if (!window.querySelector(".lightbox")) {
-          Modal.close(clickAway);
-          console.log("perdu !");
-          const button = document.getElementById("contact_opener");
-          button.focus();
-        } else {
-          Modal.close(clickAway);
-          console.log("gagné !");
-        }
+        Modal.close(clickAway);
       }
     });
 
@@ -75,11 +75,18 @@ const Modal = {
 
   open: (/** @type {HTMLElement} */ modal) => {
     modal.classList.remove("hidden");
+    modal.querySelector(".modal-window").setAttribute("open", "true");
     modal.querySelector(".modal-window").focus();
+
+    modal.onOpen?.();
   },
 
   close: (/** @type {HTMLElement} */ modal) => {
     modal.classList.add("hidden");
+    modal.querySelector(".modal-window").setAttribute("open", "false");
+
+    modal.onClose?.();
+    console.log("coucouuuu");
   },
 };
 export default Modal;

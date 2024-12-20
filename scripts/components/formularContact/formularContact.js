@@ -131,6 +131,7 @@ export const initFormValidation = () => {
   });
   submitButton.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
+      console.log("dommage !");
       event.preventDefault();
       if (!validators.find((validator) => validateField(validator))) {
         const body = document.querySelector(".formContact");

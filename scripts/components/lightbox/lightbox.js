@@ -1,9 +1,9 @@
 import Modal from "../modal.js";
 
 const Lightbox = {
-  create: () => {
+  create: (...props) => {
     const body = Lightbox.createBody();
-    const modal = Modal.create("", body);
+    const modal = Modal.create("", body, ...props);
     const window = modal.querySelector(".modal-window");
     window.classList.add("lightbox");
     window.tabIndex = 1000;
@@ -64,18 +64,18 @@ const Lightbox = {
    */
 
   openLightbox: (lightbox, medias, name, index) => {
-    Lightbox.openMedia(lightbox, medias[index], name);
+    Lightbox.openMedia(lightbox, index, medias[index], name);
     const left = lightbox.querySelector(".leftArrow");
     left.tabIndex = 1000;
 
     left.onclick = () => {
       index = (index - 1 + medias.length) % medias.length;
-      Lightbox.openMedia(lightbox, medias[index], name);
+      Lightbox.openMedia(lightbox, index, medias[index], name);
     };
     left.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
         index = (index - 1 + medias.length) % medias.length;
-        Lightbox.openMedia(lightbox, medias[index], name);
+        Lightbox.openMedia(lightbox, index, medias[index], name);
       }
     });
 
@@ -83,22 +83,22 @@ const Lightbox = {
     right.tabIndex = 1000;
     right.onclick = () => {
       index = (index + 1 + medias.length) % medias.length;
-      Lightbox.openMedia(lightbox, medias[index], name);
+      Lightbox.openMedia(lightbox, index, medias[index], name);
     };
     right.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
         index = (index + 1 + medias.length) % medias.length;
-        Lightbox.openMedia(lightbox, medias[index], name);
+        Lightbox.openMedia(lightbox, index, medias[index], name);
       }
     });
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "ArrowLeft") {
         index = (index - 1 + medias.length) % medias.length;
-        Lightbox.openMedia(lightbox, medias[index], name);
+        Lightbox.openMedia(lightbox, index, medias[index], name);
       } else if (event.key === "ArrowRight") {
         index = (index + 1 + medias.length) % medias.length;
-        Lightbox.openMedia(lightbox, medias[index], name);
+        Lightbox.openMedia(lightbox, index, medias[index], name);
       }
     });
 
@@ -111,10 +111,11 @@ const Lightbox = {
     });
   },
 
-  openMedia: (lightbox, media, name) => {
+  openMedia: (lightbox, index, media, name) => {
     const video = lightbox.querySelector(".mediaContainer video");
     const img = lightbox.querySelector(".mediaContainer img");
     const description = lightbox.querySelector(".description");
+    lightbox.mediaIndex = index;
     description.textContent = media.title;
     if (media.video) {
       video.classList.remove("hidden");

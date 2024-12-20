@@ -123,7 +123,7 @@ export const photographerTemplate = (photographer, medias) => {
     const totalLikes = document.createElement("p");
     totalLikes.classList.add("totalLikesAndPriceCss");
     totalLikes.textContent = "0";
-    totalLikes.tabIndex = 1;
+    totalLikes.tabIndex = 0;
 
     const heart = document.createElement("i");
     heart.classList.add("fa-solid", "fa-heart");
@@ -132,7 +132,7 @@ export const photographerTemplate = (photographer, medias) => {
     pricePerDay.classList.add("pricePerDay");
     const price = document.createElement("p");
     price.textContent = photographer.price.toString() + "€" + " / jour";
-    pricePerDay.tabIndex = 1;
+    pricePerDay.tabIndex = 0;
 
     likesHeart.appendChild(totalLikes);
     likesHeart.appendChild(heart);
@@ -161,7 +161,14 @@ export const photographerTemplate = (photographer, medias) => {
   function createCaroussel(medias) {
     const lightBoxes = document.querySelectorAll(".modal-click-away .lightbox");
     lightBoxes.forEach((lb) => lb.parentElement.remove());
-    const lightbox = Lightbox.create();
+    const lightbox = Lightbox.create(null, -1, undefined, () => {
+      const index = lightbox.mediaIndex;
+      const allCards = [
+        ...document.querySelectorAll(".cards .card .card-media"),
+      ];
+      allCards[index]?.focus();
+      console.log("focus", index);
+    });
     const cards = document.querySelector(".cards");
     let likedArray = JSON.parse(localStorage.getItem("Liked")) || [];
     medias.forEach((media, index) => {
@@ -194,6 +201,7 @@ export const photographerTemplate = (photographer, medias) => {
         element.tabIndex = 0;
       }
 
+      element.classList.add("card-media");
       element.onclick = () => {
         Lightbox.open(lightbox, medias, name, index);
       };
