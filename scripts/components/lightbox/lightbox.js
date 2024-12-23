@@ -101,14 +101,6 @@ const Lightbox = {
         Lightbox.openMedia(lightbox, index, medias[index], name);
       }
     });
-
-    const x = lightbox.querySelector(".modal-close-button");
-    x.tabIndex = 1001;
-    x.addEventListener("keydown", (event) => {
-      if (event.key === "Tab") {
-        left.focus();
-      }
-    });
   },
 
   openMedia: (lightbox, index, media, name) => {

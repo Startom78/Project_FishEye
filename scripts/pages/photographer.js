@@ -51,7 +51,6 @@ window.onload = () => {
       const dropDown = createDropDown(
         ["Popularité", "Date", "Titre"],
         (value, toggleSens) => {
-          console.log(value, toggleSens);
           const sortElement = sortSens.find((s) => s.name === value);
           if (toggleSens) {
             sortElement.sens = !sortElement.sens;
@@ -71,9 +70,6 @@ window.onload = () => {
               break;
           }
           displayCaroussel(photographerManager, ptg, media);
-          console.log(
-            media.map((m) => [m.date, m.title, m.likes].join(" ")).join("\n")
-          );
         }
       );
       document.querySelector(".menuSelection").appendChild(dropDown);

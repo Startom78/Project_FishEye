@@ -23,7 +23,6 @@ export const photographerTemplate = (photographer, medias) => {
 
   function createSelectionLightBox() {
     const menu = document.querySelector(".content");
-    console.log(menu);
     const modal = document.createElement("div");
     modal.classList.add("textSelection");
     modal.textContent = "Popularité";
@@ -167,7 +166,6 @@ export const photographerTemplate = (photographer, medias) => {
         ...document.querySelectorAll(".cards .card .card-media"),
       ];
       allCards[index]?.focus();
-      console.log("focus", index);
     });
     const cards = document.querySelector(".cards");
     let likedArray = JSON.parse(localStorage.getItem("Liked")) || [];

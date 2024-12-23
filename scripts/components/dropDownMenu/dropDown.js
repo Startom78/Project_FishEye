@@ -128,7 +128,6 @@ const dropDown = (options, onChange, tabIndex = undefined) => {
       onChange?.(option, last === optionElement);
       last = optionElement;
       optionElement.focus();
-      console.log(option);
     };
 
     optionElement.onclick = (event) => {

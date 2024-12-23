@@ -129,21 +129,4 @@ export const initFormValidation = () => {
       );
     }
   });
-  submitButton.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      console.log("dommage !");
-      event.preventDefault();
-      if (!validators.find((validator) => validateField(validator))) {
-        const body = document.querySelector(".formContact");
-        body.innerHTML =
-          "<div> Merci pour votre message ! le photographe vous répondra inshAllah </div>";
-        console.log(
-          "Prénom : " + first_name.value + "\n",
-          "Nom : " + last_name.value + "\n",
-          "Email : " + email.value + "\n",
-          "Message : " + message.value
-        );
-      }
-    }
-  });
 };

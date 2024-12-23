@@ -5,14 +5,13 @@ const Modal = {
     externalOpenButton = null,
     tabIndex = -1,
     onOpen = () => {},
-    onClose = () => {}
+    onClose = () => {},
+    quitOnLostFocus = true
   ) => {
     // external window - on click : close
 
     const clickAway = document.createElement("div");
     clickAway.classList.add("modal-click-away", "hidden");
-    clickAway.onOpen = onOpen;
-    clickAway.onClose = onClose;
 
     // internal window
     const window = document.createElement("dialog");
@@ -70,6 +69,27 @@ const Modal = {
     if (tabIndex > 0) {
       window.tabIndex = tabIndex;
     }
+    if (quitOnLostFocus) {
+      const handleOpen = (event) => {
+        if (window.contains(event.target)) {
+          return;
+        } else {
+          Modal.close(clickAway);
+        }
+      };
+      clickAway.onOpen = () => {
+        document.addEventListener("focusin", handleOpen);
+        onOpen?.();
+      };
+      clickAway.onClose = () => {
+        document.removeEventListener("focusin", handleOpen);
+        onClose?.();
+      };
+    } else {
+      clickAway.onOpen = onOpen;
+      clickAway.onClose = onClose;
+    }
+
     return clickAway;
   },
 
@@ -86,7 +106,6 @@ const Modal = {
     modal.querySelector(".modal-window").setAttribute("open", "false");
 
     modal.onClose?.();
-    console.log("coucouuuu");
   },
 };
 export default Modal;
