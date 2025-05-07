@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Modal from "../modal.js";
 
 function validateError(element, errorMessage) {
