@@ -9,7 +9,7 @@ const Modal = {
         quitOnLostFocus = true
     ) => {
         // external window - on click : close
-
+        /**@type {HTMLDivElement & {onOpen?: Function, onClose?: Function}} */
         const clickAway = document.createElement("div");
         clickAway.classList.add("modal-click-away", "hidden");
 
@@ -93,15 +93,17 @@ const Modal = {
         return clickAway;
     },
 
-    open: (/** @type {HTMLElement} */ modal) => {
+    open: (/** @type {HTMLElement & {onOpen?: Function}} */ modal) => {
         modal.classList.remove("hidden");
-        modal.querySelector(".modal-window").setAttribute("open", "true");
-        modal.querySelector(".modal-window").focus();
+        /**@type {HTMLElement} */
+        const window = modal.querySelector(".modal-window");
+        window.setAttribute("open", "true");
+        window.focus();
 
         modal.onOpen?.();
     },
 
-    close: (/** @type {HTMLElement} */ modal) => {
+    close: (/** @type {HTMLElement & {onClose?: Function}} */ modal) => {
         modal.classList.add("hidden");
         modal.querySelector(".modal-window").setAttribute("open", "false");
 
