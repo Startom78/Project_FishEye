@@ -17,7 +17,7 @@ export const photographerTemplate = (photographer, medias) => {
     const extractPhotographer = () => {
         const { name, id, portrait, city, country, tagline, price } =
             photographer;
-        const picture = `assets/images/photographers/${portrait}`;
+        const picture = `./assets/images/photographers/${portrait}`;
         return { name, id, picture, city, country, tagline, price };
     };
     const { name, id, picture, city, country, tagline, price } =

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <link href="css/style.css" rel="stylesheet" type="text/css"> 
+    <link href="./css/style.css" rel="stylesheet" type="text/css"> 
     <link href="./scripts/components/likes/likes.css" rel="stylesheet" type="text/css">
     <link href="./scripts/components/modal.css" rel="stylesheet" type="text/css">
     <link href="./scripts/components/lightbox/lightbox.css" rel="stylesheet" type="text/css">
     <link href="./scripts/components/dropDownMenu/dropDown.css" rel="stylesheet" type="text/css">
-    <link href ="css/photographer.css" rel="stylesheet" type="text/css">
+    <link href ="./css/photographer.css" rel="stylesheet" type="text/css">
     <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
-    <script src="/scripts/pages/photographer.js" type="module"></script>
-    <script src="/scripts/components/formularContact/formularContact.js" type="module"> </script>
+    <script src="./scripts/pages/photographer.js" type="module"></script>
+    <script src="./scripts/components/formularContact/formularContact.js" type="module"> </script>
     <link rel="stylesheet" href="./assets/fontawesome.min.css"> 
     <link rel="stylesheet" href="./assets/solid.min.css"> 
     <title>Fisheye - photographe </title>
@@ -20,7 +20,7 @@
     <div class="wrapper">
       <header class="header">
         <a href="./index.html">
-        <img src="assets/images/logo.png" class="logo" alt = "logo du site">
+        <img src="./assets/images/logo.png" class="logo" alt = "logo du site">
         </a>
       </header>
       <main id="main">
@@ -39,19 +39,19 @@
       <form class="formContact">
         <div>
           <div class="formData">
-            <label for="firstName"> Prénom </label>
+            <label for="firstName" aria-label="Prénom"> Prénom </label>
             <input id="firstName" autofocus>
           </div>
           <div class="formData">
-            <label for="lastName"> Nom </label>
-            <input id="lastName">
+            <label for="lastName" aria-label="Nom"> Nom </label>
+            <input id="lastName" >
           </div>
           <div class="formData">
-            <label for="email"> Email </label>
+            <label for="email" aria-label="Email"> Email </label>
             <input id="email">
           </div>
           <div class="formData">
-            <label for="msg"> Votre message </label>
+            <label for="msg" aria-label="Message"> Votre message </label>
             <input id="msg" class="message">
           </div>
         </div>
