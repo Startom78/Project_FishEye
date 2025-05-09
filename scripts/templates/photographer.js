@@ -199,7 +199,7 @@ export const photographerTemplate = (photographer, medias) => {
                     `assets/images/media/${name}/${media.video}`
                 );
                 element.setAttribute("alt", "video de " + name);
-                element.setAttribute("controls", "true");
+                //element.setAttribute("controls", "true");
                 element.tabIndex = 0;
             }
 
